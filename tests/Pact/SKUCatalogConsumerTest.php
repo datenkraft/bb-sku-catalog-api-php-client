@@ -24,6 +24,8 @@ class SKUCatalogConsumerTest extends TestCase
     protected string $token;
     protected array $errorResponse;
 
+    // POST /sku
+
     /**
      * @throws Exception
      */
@@ -132,9 +134,8 @@ class SKUCatalogConsumerTest extends TestCase
         // Invalid token
         $this->token = 'invalid_token';
 
-        // Error code in response is 401, extra is not defined
+        // Error code in response is 401
         $this->errorResponse['code'] = '401';
-        unset($this->errorResponse['extra']);
 
         $request = new ConsumerRequest();
         $request
@@ -182,9 +183,8 @@ class SKUCatalogConsumerTest extends TestCase
         // Token with invalid scope
         $this->token = 'valid_token_invalid_scope';
 
-        // Error code in response is 403, extra is not defined
+        // Error code in response is 403
         $this->errorResponse['code'] = '403';
-        unset($this->errorResponse['extra']);
 
         $request = new ConsumerRequest();
         $request
@@ -327,9 +327,11 @@ class SKUCatalogConsumerTest extends TestCase
      */
     public function testAddSKUDataBadRequest()
     {
-        // Error code in response is 400, skuId is not defined
-        $this->errorResponse['code'] = '400';
+        // skuId is not defined
         unset($this->skuData['skuId']);
+
+        // Error code in response is 400
+        $this->errorResponse['code'] = '400';
 
         $request = new ConsumerRequest();
         $request
@@ -366,4 +368,200 @@ class SKUCatalogConsumerTest extends TestCase
             ]
         );
     }
+
+    // GET /sku/{skuId}
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testGetSKUDataSuccess()
+    {
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('GET')
+            ->setPath('/sku/' . $this->skuData['skuId'])
+            ->addHeader('Authorization', 'Bearer ' . $this->token);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(200)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody($this->skuData);
+
+        $this->builder
+            ->given(
+                'A SKU with skuIdD exists, ' .
+                'the request is valid, the token is valid and has a valid scope'
+            )
+            ->uponReceiving('Successful GET request to /sku/{skuId}')
+            ->with($request)
+            ->willRespondWith($response);
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $response = $httpClient->request(
+            'GET',
+            '/sku/' . $this->skuData['skuId'],
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token
+                ]
+            ]
+        );
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getBody());
+        $this->assertEquals($this->skuData, json_decode($response->getBody()));
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testGetSKUDataUnauthorized()
+    {
+        // Invalid token
+        $this->token = 'invalid_token';
+
+        // Error code in response is 401
+        $this->errorResponse['code'] = '401';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('GET')
+            ->setPath('/sku/' . $this->skuData['skuId'])
+            ->addHeader('Authorization', 'Bearer ' . $this->token);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(401)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given('The token is invalid')
+            ->uponReceiving('Unauthorized GET request to /sku/{skuId}')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 401
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~401~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'GET',
+            '/sku/' . $this->skuData['skuId'],
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token
+                ]
+            ]
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testGetSKUDataForbidden()
+    {
+        // Token with invalid scope
+        $this->token = 'valid_token_invalid_scope';
+
+        // Error code in response is 403
+        $this->errorResponse['code'] = '403';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('GET')
+            ->setPath('/sku/' . $this->skuData['skuId'])
+            ->addHeader('Authorization', 'Bearer ' . $this->token);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(403)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given('The request is valid, the token is valid with an invalid scope')
+            ->uponReceiving('Forbidden GET request to /sku/{skuId}')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 403
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~403~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'GET',
+            '/sku/' . $this->skuData['skuId'],
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token
+                ]
+            ]
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testGetSKUDataNotFound()
+    {
+        // SKU with skuId does not exist
+        $this->skuData['skuId'] = 'skuId_test_invalid';
+
+        // Error code in response is 404
+        $this->errorResponse['code'] = '404';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('GET')
+            ->setPath('/sku/' . $this->skuData['skuId'])
+            ->addHeader('Authorization', 'Bearer ' . $this->token);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(404)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given(
+                'A SKU with skuId does not exist and ' .
+                'the request is valid, the token is valid with an invalid scope'
+            )
+            ->uponReceiving('Not Found GET request to /sku/{skuId}')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 403
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~403~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'GET',
+            '/sku/' . $this->skuData['skuId'],
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token
+                ]
+            ]
+        );
+    }
+
+    /*
+     * TODO:
+     *
+     * testAddSKUGroupDataSuccess
+     * testAddSKUGroupDataUnauthorized
+     * testAddSKUGroupDataForbidden
+     * testAddSKUGroupDataBadRequest
+     *
+     * testGetSKUGroupDataSuccess
+     * testGetSKUGroupDataUnauthorized
+     * testGetSKUGroupDataForbidden
+     * testGetSKUGroupDataNotFound
+     */
 }

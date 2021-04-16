@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\GuzzleException;
  * Class SKUCatalogConsumerAddSKUTest
  * @package Pact
  */
-class SKUCatalogConsumerAGetKUTest extends SKUCatalogConsumerTest
+class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 {
     protected string $skuIdValid;
     protected string $skuIdInvalid;
@@ -104,7 +104,7 @@ class SKUCatalogConsumerAGetKUTest extends SKUCatalogConsumerTest
      */
     public function testGetSKUNotFound()
     {
-        // Path with SKU-ID for non existent SKU
+        // Path with skuId for non existent SKU
         $this->path = '/sku/' . $this->skuIdInvalid;
 
         // Error code in response is 404

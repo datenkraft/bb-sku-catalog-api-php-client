@@ -51,7 +51,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
             fsockopen($this->config->getHost(), $this->config->getPort());
         } catch (Exception $exception) {
             throw new Exception(
-                'Mock server not running. Make sure the Testsuite was started with the PactTestListener.'
+                'Mock server not running. Make sure the Testsuite was started with the PactTestListener: ' . $exception->getMessage()
             );
         }
 
@@ -84,7 +84,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
     /**
      * @throws GuzzleException
      */
-    protected function testSuccessResponse()
+    protected function testSuccessResponse(): void
     {
         $consumerRequest = $this->createConsumerRequest($this->method, $this->path, $this->requestHeaders, $this->requestData);
         $providerResponse = $this->createProviderResponse($this->expectedStatusCode, $this->responseHeaders, $this->responseData);
@@ -101,7 +101,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
     /**
      * @throws GuzzleException
      */
-    protected function testErrorResponse()
+    protected function testErrorResponse(): void
     {
         $consumerRequest = $this->createConsumerRequest($this->method, $this->path, $this->requestHeaders, $this->requestData);
         $providerResponse = $this->createProviderResponse($this->expectedStatusCode, $this->responseHeaders, $this->errorResponse);

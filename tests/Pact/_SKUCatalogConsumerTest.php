@@ -41,7 +41,7 @@ class _SKUCatalogConsumerTest extends TestCase
             fsockopen($this->config->getHost(), $this->config->getPort());
         } catch (Exception $exception) {
             throw new Exception(
-                'Mock server not running. Make sure the Testsuite was started with the PactTestListener.'
+                'Mock server not running. Make sure the Testsuite was started with the PactTestListener: ' . $exception->getMessage()
             );
         }
 
@@ -83,305 +83,304 @@ class _SKUCatalogConsumerTest extends TestCase
         $this->builder->verify();
     }
 
-//    // POST /sku
-//
-//    /**
-//     * @throws GuzzleException
-//     */
-//    public function testAddSKUSuccess()
-//    {
-//        // Consumer request
-//        $request = new ConsumerRequest();
-//        $request
-//            ->setMethod('POST')
-//            ->setPath('/sku')
-//            ->addHeader('Authorization', 'Bearer ' . $this->token)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody($this->sku);
-//
-//        // Provider response (mocked)
-//        $response = new ProviderResponse();
-//        $response
-//            ->setStatus(201)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody($this->sku);
-//
-//        // Build and register the interaction
-//        $this->builder
-//            ->given(
-//                'A SKU with skuIdD does not exist, a SKU Group with skuGroupId exists, ' .
-//                'the request is valid, the token is valid and has a valid scope'
-//            )
-//            ->uponReceiving('Successful POST request to /sku')
-//            ->with($request)
-//            ->willRespondWith($response);
-//
-//        // Make the request
-//        // Uses GuzzleHttp/Client for now, to be replaced with real method(s) when the PHP client is implemented
-//        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
-//        $response = $httpClient->request(
-//            'POST',
-//            '/sku',
-//            [
-//                'headers' => [
-//                    'Content-Type' => 'application/json',
-//                    'Authorization' => 'Bearer ' . $this->token
-//                ],
-//                'body' => json_encode($this->sku)
-//            ]
-//        );
-//
-//        // Make assertions that the expected data in the response is correct
-//        $this->assertEquals(201, $response->getStatusCode());
-//        $this->assertJson($response->getBody());
-//        $this->assertEquals($this->sku, json_decode($response->getBody()));
-//    }
-//
-//    /**
-//     * @throws GuzzleException
-//     */
-//    public function testAddSKUUnauthorized()
-//    {
-//        // Invalid token
-//        $this->token = 'invalid_token';
-//
-//        // Error code in response is 401
-//        $this->errorResponse['code'] = '401';
-//
-//        $request = new ConsumerRequest();
-//        $request
-//            ->setMethod('POST')
-//            ->setPath('/sku')
-//            ->addHeader('Authorization', 'Bearer ' . $this->token)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody($this->sku);
-//
-//        $response = new ProviderResponse();
-//        $response
-//            ->setStatus(401)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody(['errors' => [$this->errorResponse]]);
-//
-//        $this->builder
-//            ->given('The token is invalid')
-//            ->uponReceiving('Unauthorized POST request to /sku')
-//            ->with($request)
-//            ->willRespondWith($response);
-//
-//        // The request should throw an Exception, because the server sends a 401
-//        $this->expectException(ClientException::class);
-//        $this->expectExceptionMessageMatches('~401~');
-//
-//        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
-//        $httpClient->request(
-//            'POST',
-//            '/sku',
-//            [
-//                'headers' => [
-//                    'Content-Type' => 'application/json',
-//                    'Authorization' => 'Bearer ' . $this->token
-//                ],
-//                'body' => json_encode($this->sku)
-//            ]
-//        );
-//    }
-//
-//    /**
-//     * @throws GuzzleException
-//     */
-//    public function testAddSKUForbidden()
-//    {
-//        // Token with invalid scope
-//        $this->token = 'valid_token_invalid_scope';
-//
-//        // Error code in response is 403
-//        $this->errorResponse['code'] = '403';
-//
-//        $request = new ConsumerRequest();
-//        $request
-//            ->setMethod('POST')
-//            ->setPath('/sku')
-//            ->addHeader('Authorization', 'Bearer ' . $this->token)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody($this->sku);
-//
-//        $response = new ProviderResponse();
-//        $response
-//            ->setStatus(403)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody(['errors' => [$this->errorResponse]]);
-//
-//        $this->builder
-//            ->given('The request is valid, the token is valid with an invalid scope')
-//            ->uponReceiving('Forbidden POST request to /sku')
-//            ->with($request)
-//            ->willRespondWith($response);
-//
-//        // The request should throw an Exception, because the server sends a 403
-//        $this->expectException(ClientException::class);
-//        $this->expectExceptionMessageMatches('~403~');
-//
-//        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
-//        $httpClient->request(
-//            'POST',
-//            '/sku',
-//            [
-//                'headers' => [
-//                    'Content-Type' => 'application/json',
-//                    'Authorization' => 'Bearer ' . $this->token
-//                ],
-//                'body' => json_encode($this->sku)
-//            ]
-//        );
-//    }
-//
-//    /**
-//     * @throws GuzzleException
-//     */
-//    public function testAddSKUUnprocessableEntity()
-//    {
-//        // SKU Group with skuGroupId does not exist
-//        $this->sku['skuGroupId'] = 0;
-//
-//        // Error code in response is 422
-//        $this->errorResponse['code'] = '422';
-//
-//        $request = new ConsumerRequest();
-//        $request
-//            ->setMethod('POST')
-//            ->setPath('/sku')
-//            ->addHeader('Authorization', 'Bearer ' . $this->token)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody($this->sku);
-//
-//        $response = new ProviderResponse();
-//        $response
-//            ->setStatus(422)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody(['errors' => [$this->errorResponse]]);
-//
-//        $this->builder
-//            ->given('The SKU Group with skuGroupId does not exist')
-//            ->uponReceiving('POST request to /sku with non-existent skuGroupId')
-//            ->with($request)
-//            ->willRespondWith($response);
-//
-//        // The request should throw an Exception, because the server sends a 422
-//        $this->expectException(ClientException::class);
-//        $this->expectExceptionMessageMatches('~422~');
-//
-//        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
-//        $httpClient->request(
-//            'POST',
-//            '/sku',
-//            [
-//                'headers' => [
-//                    'Content-Type' => 'application/json',
-//                    'Authorization' => 'Bearer ' . $this->token
-//                ],
-//                'body' => json_encode($this->sku)
-//            ]
-//        );
-//    }
-//
-//    /**
-//     * @throws GuzzleException
-//     */
-//    public function testAddSKUConflict()
-//    {
-//        // SKU with skuId already exists
-//        $this->sku['skuId'] = 'skuId_test_duplicate';
-//
-//        // Error code in response is 409
-//        $this->errorResponse['code'] = '409';
-//
-//        $request = new ConsumerRequest();
-//        $request
-//            ->setMethod('POST')
-//            ->setPath('/sku')
-//            ->addHeader('Authorization', 'Bearer ' . $this->token)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody($this->sku);
-//
-//        $response = new ProviderResponse();
-//        $response
-//            ->setStatus(409)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody(['errors' => [$this->errorResponse]]);
-//
-//        $this->builder
-//            ->given('A SKU with skuId already exists')
-//            ->uponReceiving('POST request to /sku with already existent skuId')
-//            ->with($request)
-//            ->willRespondWith($response);
-//
-//        // The request should throw an Exception, because the server sends a 409
-//        $this->expectException(ClientException::class);
-//        $this->expectExceptionMessageMatches('~409~');
-//
-//        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
-//        $httpClient->request(
-//            'POST',
-//            '/sku',
-//            [
-//                'headers' => [
-//                    'Content-Type' => 'application/json',
-//                    'Authorization' => 'Bearer ' . $this->token
-//                ],
-//                'body' => json_encode($this->sku)
-//            ]
-//        );
-//    }
-//
-//    /**
-//     * @throws GuzzleException
-//     */
-//    public function testAddSKUBadRequest()
-//    {
-//        // skuId is not defined
-//        unset($this->sku['skuId']);
-//
-//        // Error code in response is 400
-//        $this->errorResponse['code'] = '400';
-//
-//        $request = new ConsumerRequest();
-//        $request
-//            ->setMethod('POST')
-//            ->setPath('/sku')
-//            ->addHeader('Authorization', 'Bearer ' . $this->token)
-//            ->setBody(json_encode($this->sku));
-//
-//        $response = new ProviderResponse();
-//        $response
-//            ->setStatus(400)
-//            ->addHeader('Content-Type', 'application/json')
-//            ->setBody(['errors' => [$this->errorResponse]]);
-//
-//        $this->builder
-//            ->given('The request body is invalid or missing')
-//            ->uponReceiving('Bad POST request to /sku')
-//            ->with($request)
-//            ->willRespondWith($response);
-//
-//        // The request should throw an Exception, because the server sends a 400
-//        $this->expectException(ClientException::class);
-//        $this->expectExceptionMessageMatches('~400~');
-//
-//        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
-//        $httpClient->request(
-//            'POST',
-//            '/sku',
-//            [
-//                'headers' => [
-//                    'Authorization' => 'Bearer ' . $this->token
-//                ],
-//                'body' => json_encode($this->sku)
-//            ]
-//        );
-//    }
+    // POST /sku
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testAddSKUSuccess()
+    {
+        // Consumer request
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('POST')
+            ->setPath('/sku')
+            ->addHeader('Authorization', 'Bearer ' . $this->token)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody($this->sku);
+
+        // Provider response (mocked)
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(201)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody($this->sku);
+
+        // Build and register the interaction
+        $this->builder
+            ->given(
+                'A SKU with skuIdD does not exist, a SKU Group with skuGroupId exists, ' .
+                'the request is valid, the token is valid and has a valid scope'
+            )
+            ->uponReceiving('Successful POST request to /sku')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // Make the request
+        // Uses GuzzleHttp/Client for now, to be replaced with real method(s) when the PHP client is implemented
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $response = $httpClient->request(
+            'POST',
+            '/sku',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->token
+                ],
+                'body' => json_encode($this->sku)
+            ]
+        );
+
+        // Make assertions that the expected data in the response is correct
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertJson($response->getBody());
+        $this->assertEquals($this->sku, json_decode($response->getBody()));
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testAddSKUUnauthorized()
+    {
+        // Invalid token
+        $this->token = 'invalid_token';
+
+        // Error code in response is 401
+        $this->errorResponse['code'] = '401';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('POST')
+            ->setPath('/sku')
+            ->addHeader('Authorization', 'Bearer ' . $this->token)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody($this->sku);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(401)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given('The token is invalid')
+            ->uponReceiving('Unauthorized POST request to /sku')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 401
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~401~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'POST',
+            '/sku',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->token
+                ],
+                'body' => json_encode($this->sku)
+            ]
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testAddSKUForbidden()
+    {
+        // Token with invalid scope
+        $this->token = 'valid_token_invalid_scope';
+
+        // Error code in response is 403
+        $this->errorResponse['code'] = '403';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('POST')
+            ->setPath('/sku')
+            ->addHeader('Authorization', 'Bearer ' . $this->token)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody($this->sku);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(403)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given('The request is valid, the token is valid with an invalid scope')
+            ->uponReceiving('Forbidden POST request to /sku')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 403
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~403~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'POST',
+            '/sku',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->token
+                ],
+                'body' => json_encode($this->sku)
+            ]
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testAddSKUUnprocessableEntity()
+    {
+        // SKU Group with skuGroupId does not exist
+        $this->sku['skuGroupId'] = 0;
+
+        // Error code in response is 422
+        $this->errorResponse['code'] = '422';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('POST')
+            ->setPath('/sku')
+            ->addHeader('Authorization', 'Bearer ' . $this->token)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody($this->sku);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(422)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given('The SKU Group with skuGroupId does not exist')
+            ->uponReceiving('POST request to /sku with non-existent skuGroupId')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 422
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~422~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'POST',
+            '/sku',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->token
+                ],
+                'body' => json_encode($this->sku)
+            ]
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testAddSKUConflict()
+    {
+        // SKU with skuId already exists
+        $this->sku['skuId'] = 'skuId_test_duplicate';
+
+        // Error code in response is 409
+        $this->errorResponse['code'] = '409';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('POST')
+            ->setPath('/sku')
+            ->addHeader('Authorization', 'Bearer ' . $this->token)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody($this->sku);
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(409)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given('A SKU with skuId already exists')
+            ->uponReceiving('POST request to /sku with already existent skuId')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 409
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~409~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'POST',
+            '/sku',
+            [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $this->token
+                ],
+                'body' => json_encode($this->sku)
+            ]
+        );
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testAddSKUBadRequest()
+    {
+        // skuId is not defined
+        unset($this->sku['skuId']);
+
+        // Error code in response is 400
+        $this->errorResponse['code'] = '400';
+
+        $request = new ConsumerRequest();
+        $request
+            ->setMethod('POST')
+            ->setPath('/sku')
+            ->addHeader('Authorization', 'Bearer ' . $this->token)
+            ->setBody(json_encode($this->sku));
+
+        $response = new ProviderResponse();
+        $response
+            ->setStatus(400)
+            ->addHeader('Content-Type', 'application/json')
+            ->setBody(['errors' => [$this->errorResponse]]);
+
+        $this->builder
+            ->given('The request body is invalid or missing')
+            ->uponReceiving('Bad POST request to /sku')
+            ->with($request)
+            ->willRespondWith($response);
+
+        // The request should throw an Exception, because the server sends a 400
+        $this->expectException(ClientException::class);
+        $this->expectExceptionMessageMatches('~400~');
+
+        $httpClient = new Client(['base_uri' => $this->config->getBaseUri()]);
+        $httpClient->request(
+            'POST',
+            '/sku',
+            [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->token
+                ],
+                'body' => json_encode($this->sku)
+            ]
+        );
+    }
 
     // GET /sku/{skuId}
-
     /**
      * @throws GuzzleException
      */
@@ -563,7 +562,6 @@ class _SKUCatalogConsumerTest extends TestCase
     }
 
     // POST /sku-group
-
     /**
      * @throws GuzzleException
      */
@@ -761,7 +759,6 @@ class _SKUCatalogConsumerTest extends TestCase
     }
 
     // GET /sku-group/{skuGroupId}
-
     /**
      * @throws GuzzleException
      */

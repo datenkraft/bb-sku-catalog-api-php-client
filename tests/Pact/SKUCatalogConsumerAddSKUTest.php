@@ -41,7 +41,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUSuccess()
+    public function testAddSKUSuccess(): void
     {
         $this->expectedStatusCode = '201';
 
@@ -56,7 +56,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUUnauthorized()
+    public function testAddSKUUnauthorized(): void
     {
         // Invalid token
         $this->token = 'invalid_token';
@@ -74,7 +74,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUForbidden()
+    public function testAddSKUForbidden(): void
     {
         // Token with invalid scope
         $this->token = 'valid_token_invalid_scope';
@@ -92,7 +92,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUUnprocessableEntity()
+    public function testAddSKUUnprocessableEntity(): void
     {
         // SKU Group with skuGroupId does not exist
         $this->requestData['skuGroupId'] = 0;
@@ -111,7 +111,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUConflict()
+    public function testAddSKUConflict(): void
     {
         // SKU with skuId already exists
         $this->requestData['skuId'] = 'skuId_test_duplicate';
@@ -130,7 +130,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUBadRequest()
+    public function testAddSKUBadRequest(): void
     {
         // skuId is not defined
         unset($this->requestData['skuId']);

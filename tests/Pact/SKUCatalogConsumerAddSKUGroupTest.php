@@ -42,7 +42,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUGroupSuccess()
+    public function testAddSKUGroupSuccess(): void
     {
         $this->expectedStatusCode = '201';
 
@@ -58,7 +58,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUGroupUnauthorized()
+    public function testAddSKUGroupUnauthorized(): void
     {
         // Invalid token
         $this->token = 'invalid_token';
@@ -77,7 +77,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUGroupForbidden()
+    public function testAddSKUGroupForbidden(): void
     {
         // Token with invalid scope
         $this->token = 'valid_token_invalid_scope';
@@ -96,7 +96,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testAddSKUGroupBadRequest()
+    public function testAddSKUGroupBadRequest(): void
     {
         // name is not defined
         unset($this->requestData['name']);

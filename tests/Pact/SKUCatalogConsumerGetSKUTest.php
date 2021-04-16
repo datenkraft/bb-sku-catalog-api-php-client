@@ -46,7 +46,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testGetSKUSuccess()
+    public function testGetSKUSuccess(): void
     {
         $this->expectedStatusCode = '200';
 
@@ -64,7 +64,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testGetSKUUnauthorized()
+    public function testGetSKUUnauthorized(): void
     {
         // Invalid token
         $this->token = 'invalid_token';
@@ -83,7 +83,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testGetSKUForbidden()
+    public function testGetSKUForbidden(): void
     {
         // Token with invalid scope
         $this->token = 'valid_token_invalid_scope';
@@ -102,7 +102,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws GuzzleException
      */
-    public function testGetSKUNotFound()
+    public function testGetSKUNotFound(): void
     {
         // Path with skuId for non existent SKU
         $this->path = '/sku/' . $this->skuIdInvalid;

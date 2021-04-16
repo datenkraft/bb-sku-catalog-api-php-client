@@ -86,10 +86,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
      */
     protected function testSuccessResponse(): void
     {
-        $consumerRequest = $this->createConsumerRequest($this->method, $this->path, $this->requestHeaders, $this->requestData);
-        $providerResponse = $this->createProviderResponse($this->expectedStatusCode, $this->responseHeaders, $this->responseData);
-
-        $this->builder->with($consumerRequest)->willRespondWith($providerResponse);
+        $this->prepareTest();
 
         $response = $this->doRequest($this->method, $this->path, ['headers' => $this->requestHeaders, 'body' => json_encode($this->requestData)]);
 
@@ -103,15 +100,21 @@ abstract class SKUCatalogConsumerTest extends TestCase
      */
     protected function testErrorResponse(): void
     {
-        $consumerRequest = $this->createConsumerRequest($this->method, $this->path, $this->requestHeaders, $this->requestData);
-        $providerResponse = $this->createProviderResponse($this->expectedStatusCode, $this->responseHeaders, $this->errorResponse);
-
-        $this->builder->with($consumerRequest)->willRespondWith($providerResponse);
+        $this->responseData = $this->errorResponse;
+        $this->prepareTest();
 
         $this->expectException(ClientException::class);
         $this->expectExceptionMessageMatches('~' . $this->expectedStatusCode . '~');
 
         $this->doRequest($this->method, $this->path, ['headers' => $this->requestHeaders, 'body' => json_encode($this->requestData)]);
+    }
+
+    protected function prepareTest():void
+    {
+        $consumerRequest = $this->createConsumerRequest($this->method, $this->path, $this->requestHeaders, $this->requestData);
+        $providerResponse = $this->createProviderResponse($this->expectedStatusCode, $this->responseHeaders, $this->responseData);
+
+        $this->builder->with($consumerRequest)->willRespondWith($providerResponse);
     }
 
     /**

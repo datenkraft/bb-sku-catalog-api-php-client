@@ -19,7 +19,6 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         parent::setUp();
 
         $this->method = 'POST';
-        $this->path = '/sku';
 
         $this->requestHeaders = [
             ['Authorization' => 'Bearer ' . $this->token],
@@ -35,6 +34,8 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             'name' => 'Test sku name'
         ];
         $this->responseData = $this->requestData;
+
+        $this->path = '/sku';
     }
 
     /**
@@ -42,7 +43,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
      */
     public function testAddSKUSuccess()
     {
-        $this->expectedStatusCode = 201;
+        $this->expectedStatusCode = '201';
 
         $this->builder
             ->given('A SKU with skuIdD does not exist, a SKU Group with skuGroupId exists, ' .
@@ -60,7 +61,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         // Invalid token
         $this->token = 'invalid_token';
 
-        $this->expectedStatusCode = 401;
+        $this->expectedStatusCode = '401';
         $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
 
         $this->builder
@@ -78,7 +79,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         // Token with invalid scope
         $this->token = 'valid_token_invalid_scope';
 
-        $this->expectedStatusCode = 403;
+        $this->expectedStatusCode = '403';
         $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
 
         $this->builder
@@ -97,7 +98,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->requestData['skuGroupId'] = 0;
 
         // Error code in response is 422
-        $this->expectedStatusCode = 422;
+        $this->expectedStatusCode = '422';
         $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
 
         $this->builder
@@ -116,7 +117,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->requestData['skuId'] = 'skuId_test_duplicate';
 
         // Error code in response is 409
-        $this->expectedStatusCode = 409;
+        $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
 
         $this->builder
@@ -135,7 +136,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         unset($this->requestData['skuId']);
 
         // Error code in response is 400
-        $this->expectedStatusCode = 400;
+        $this->expectedStatusCode = '400';
         $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
 
         $this->builder

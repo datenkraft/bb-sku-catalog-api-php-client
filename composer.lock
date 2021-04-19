@@ -442,16 +442,16 @@
         },
         {
             "name": "amphp/http-server",
-            "version": "v2.1.0",
+            "version": "v2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/http-server.git",
-                "reference": "30063e245559095ff99a320b88a8a88ff719cc6e"
+                "reference": "d1f71b05c5a2f642b54df88b8b328b721eada625"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/http-server/zipball/30063e245559095ff99a320b88a8a88ff719cc6e",
-                "reference": "30063e245559095ff99a320b88a8a88ff719cc6e",
+                "url": "https://api.github.com/repos/amphp/http-server/zipball/d1f71b05c5a2f642b54df88b8b328b721eada625",
+                "reference": "d1f71b05c5a2f642b54df88b8b328b721eada625",
                 "shasum": ""
             },
             "require": {
@@ -491,7 +491,8 @@
                 },
                 "files": [
                     "src/Middleware/functions.php",
-                    "src/functions.php"
+                    "src/functions.php",
+                    "src/Server.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -527,9 +528,15 @@
             ],
             "support": {
                 "issues": "https://github.com/amphp/http-server/issues",
-                "source": "https://github.com/amphp/http-server/tree/master"
+                "source": "https://github.com/amphp/http-server/tree/v2.1.2"
             },
-            "time": "2020-06-20T14:40:33+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/amphp",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-04-16T08:52:44+00:00"
         },
         {
             "name": "amphp/log",

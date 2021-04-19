@@ -10,7 +10,7 @@
 
     <!-- PHPUnit Listener to start/stop the mock server, write the results, and publish them to the pact broker -->
     <listeners>
-        <listener class="PhpPact\Consumer\Listener\PactTestListener">
+        <listener class="Pact\Listener\DatenkraftPactTestListener">
             <arguments>
                 <array>
                     <element key="0">

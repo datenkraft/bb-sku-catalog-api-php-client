@@ -5,7 +5,6 @@ namespace Pact\Listener;
 use GuzzleHttp\Psr7\Uri;
 use PhpPact\Broker\Service\BrokerHttpClient;
 use PhpPact\Http\GuzzleClient;
-use PhpPact\Standalone\MockService\MockServer;
 use PhpPact\Standalone\MockService\MockServerConfigInterface;
 use PhpPact\Standalone\MockService\MockServerEnvConfig;
 use PhpPact\Standalone\MockService\Service\MockServerHttpService;
@@ -20,8 +19,6 @@ use PHPUnit\Framework\TestSuite;
 class DatenkraftPactTestListener implements TestListener
 {
     use TestListenerDefaultImplementation;
-
-    protected MockServer $server;
 
     /**
      * Name of the test suite configured in your phpunit config.
@@ -43,7 +40,7 @@ class DatenkraftPactTestListener implements TestListener
     }
 
     /**
-     * Publish JSON results to PACT Broker and stop the Mock Server.
+     * Publish JSON results to PACT Broker.
      *
      * @param TestSuite $suite
      */

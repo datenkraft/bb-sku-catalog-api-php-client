@@ -14,5 +14,13 @@ services:
     volumes:
       - ./pacts/:/pacts
     ports:
-      - "7935:7935"
-    command: "mock-service --port 7935 --host 0.0.0.0 --pact-file-write-mode=overwrite --consumer=skuCatalogConsumer --provider=skuCatalogProvider --pact-dir /pacts"
+      - "30297:30297"
+    command: [
+        "mock-service",
+        "--port", "30297",
+        "--host", "0.0.0.0",
+        "--pact-file-write-mode", "overwrite",
+        "--consumer", "skuCatalogConsumer",
+        "--provider", "skuCatalogProvider",
+        "--pact-dir", "/pacts"
+    ]

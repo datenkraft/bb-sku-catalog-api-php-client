@@ -21,11 +21,11 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         $this->method = 'POST';
 
         $this->requestHeaders = [
-            ['Authorization' => 'Bearer ' . $this->token],
-            ['Content-Type' => 'application/json']
+            'Authorization' => 'Bearer ' . $this->token,
+            'Content-Type' => 'application/json'
         ];
         $this->responseHeaders = [
-            ['Content-Type' => 'application/json']
+            'Content-Type' => 'application/json'
         ];
 
         $this->requestData = [
@@ -62,6 +62,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
     {
         // Invalid token
         $this->token = 'invalid_token';
+        $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 401
         $this->expectedStatusCode = '401';
@@ -81,6 +82,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
     {
         // Token with invalid scope
         $this->token = 'valid_token_invalid_scope';
+        $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 403
         $this->expectedStatusCode = '403';

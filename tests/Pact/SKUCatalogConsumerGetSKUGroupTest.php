@@ -3,11 +3,7 @@
 namespace Pact;
 
 use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
-use PhpPact\Consumer\Model\ConsumerRequest;
-use PhpPact\Consumer\Model\ProviderResponse;
 
 /**
  * Class SKUCatalogConsumerAddSKUTest
@@ -28,10 +24,10 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
         $this->method = 'GET';
 
         $this->requestHeaders = [
-            ['Authorization' => 'Bearer ' . $this->token],
+            'Authorization' => 'Bearer ' . $this->token
         ];
         $this->responseHeaders = [
-            ['Content-Type' => 'application/json']
+            'Content-Type' => 'application/json'
         ];
 
         $this->skuGroupIdValid = 1;
@@ -70,6 +66,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
     {
         // Invalid token
         $this->token = 'invalid_token';
+        $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 401
         $this->expectedStatusCode = '401';
@@ -89,6 +86,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
     {
         // Token with invalid scope
         $this->token = 'valid_token_invalid_scope';
+        $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 403
         $this->expectedStatusCode = '403';

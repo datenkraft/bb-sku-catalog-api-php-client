@@ -3,7 +3,6 @@
 namespace Pact;
 
 use Exception;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use PhpPact\Consumer\InteractionBuilder;
 use PhpPact\Standalone\MockService\MockServerEnvConfig;
@@ -21,6 +20,9 @@ abstract class SKUCatalogConsumerTest extends TestCase
 {
     protected InteractionBuilder $builder;
     protected MockServerEnvConfig $config;
+
+    //protected string $expectedExceptionClass = ClientException::class;
+    protected string $expectedExceptionClass = GuzzleException::class;
 
     protected string $token;
 
@@ -92,7 +94,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
 
         $this->assertEquals($this->expectedStatusCode, $response->getStatusCode());
         $this->assertJson($response->getBody());
-        $this->assertEquals($this->responseData, json_decode($response->getBody()));
+        $this->assertEquals($this->responseData, json_decode($response->getBody(), true));
     }
 
     /**
@@ -103,7 +105,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
         $this->responseData = $this->errorResponse;
         $this->prepareTest();
 
-        $this->expectException(ClientException::class);
+        $this->expectException($this->expectedExceptionClass);
         $this->expectExceptionMessageMatches('~' . $this->expectedStatusCode . '~');
 
         $this->doRequest($this->method, $this->path, ['headers' => $this->requestHeaders, 'body' => json_encode($this->requestData)]);

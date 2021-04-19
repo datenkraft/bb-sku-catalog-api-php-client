@@ -23,7 +23,7 @@
 
     <!-- Environment variables for testing -->
     <php>
-        <env name="PACT_MOCK_SERVER_HOST" value="localhost"/>
+        <env name="PACT_MOCK_SERVER_HOST" value="pact-mock-service"/>
         <env name="PACT_MOCK_SERVER_PORT" value="7935"/>
         <env name="PACT_CONSUMER_NAME" value="skuCatalogConsumer"/>
         <env name="PACT_CONSUMER_VERSION" value="1.0.0"/>

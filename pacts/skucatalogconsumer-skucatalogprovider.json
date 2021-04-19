@@ -1,0 +1,499 @@
+{
+  "consumer": {
+    "name": "skuCatalogConsumer"
+  },
+  "provider": {
+    "name": "skuCatalogProvider"
+  },
+  "interactions": [
+    {
+      "description": "Successful POST request to /sku-group",
+      "providerState": "The request is valid, the token is valid and has a valid scope",
+      "request": {
+        "method": "POST",
+        "path": "/sku-group",
+        "headers": {
+          "Authorization": "Bearer valid_token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Test group name"
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuGroupId": 1,
+          "name": "Test group name"
+        }
+      }
+    },
+    {
+      "description": "Unauthorized POST request to /sku-group",
+      "providerState": "The token is invalid",
+      "request": {
+        "method": "POST",
+        "path": "/sku-group",
+        "headers": {
+          "Authorization": "Bearer invalid_token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Test group name"
+        }
+      },
+      "response": {
+        "status": 401,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 401,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Forbidden POST request to /sku-group",
+      "providerState": "The request is valid, the token is valid with an invalid scope",
+      "request": {
+        "method": "POST",
+        "path": "/sku-group",
+        "headers": {
+          "Authorization": "Bearer valid_token_invalid_scope",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Test group name"
+        }
+      },
+      "response": {
+        "status": 403,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 403,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Bad POST request to /sku-group",
+      "providerState": "The request body is invalid or missing",
+      "request": {
+        "method": "POST",
+        "path": "/sku-group",
+        "headers": {
+          "Authorization": "Bearer valid_token",
+          "Content-Type": "application/json"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 400,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Successful POST request to /sku",
+      "providerState": "A SKU with skuIdD does not exist, a SKU Group with skuGroupId exists, the request is valid, the token is valid and has a valid scope",
+      "request": {
+        "method": "POST",
+        "path": "/sku",
+        "headers": {
+          "Authorization": "Bearer valid_token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuId": "skuId_test",
+          "skuGroupId": 1,
+          "name": "Test sku name"
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuId": "skuId_test",
+          "skuGroupId": 1,
+          "name": "Test sku name"
+        }
+      }
+    },
+    {
+      "description": "Unauthorized POST request to /sku",
+      "providerState": "The token is invalid",
+      "request": {
+        "method": "POST",
+        "path": "/sku",
+        "headers": {
+          "Authorization": "Bearer invalid_token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuId": "skuId_test",
+          "skuGroupId": 1,
+          "name": "Test sku name"
+        }
+      },
+      "response": {
+        "status": 401,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 401,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Forbidden POST request to /sku",
+      "providerState": "The request is valid, the token is valid with an invalid scope",
+      "request": {
+        "method": "POST",
+        "path": "/sku",
+        "headers": {
+          "Authorization": "Bearer valid_token_invalid_scope",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuId": "skuId_test",
+          "skuGroupId": 1,
+          "name": "Test sku name"
+        }
+      },
+      "response": {
+        "status": 403,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 403,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "POST request to /sku with non-existent skuGroupId",
+      "providerState": "The SKU Group with skuGroupId does not exist",
+      "request": {
+        "method": "POST",
+        "path": "/sku",
+        "headers": {
+          "Authorization": "Bearer valid_token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuId": "skuId_test",
+          "skuGroupId": 0,
+          "name": "Test sku name"
+        }
+      },
+      "response": {
+        "status": 422,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 422,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "POST request to /sku with already existent skuId",
+      "providerState": "A SKU with skuId already exists",
+      "request": {
+        "method": "POST",
+        "path": "/sku",
+        "headers": {
+          "Authorization": "Bearer valid_token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuId": "skuId_test_duplicate",
+          "skuGroupId": 1,
+          "name": "Test sku name"
+        }
+      },
+      "response": {
+        "status": 409,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 409,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Bad POST request to /sku",
+      "providerState": "The request body is invalid or missing",
+      "request": {
+        "method": "POST",
+        "path": "/sku",
+        "headers": {
+          "Authorization": "Bearer valid_token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuGroupId": 1,
+          "name": "Test sku name"
+        }
+      },
+      "response": {
+        "status": 400,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 400,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Successful GET request to /sku-group/{skuGroupId}",
+      "providerState": "A SKU Group with skuGroupIdD exists, the request is valid, the token is valid and has a valid scope",
+      "request": {
+        "method": "GET",
+        "path": "/sku-group/1",
+        "headers": {
+          "Authorization": "Bearer valid_token"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuGroupId": 1,
+          "name": "Test group name"
+        }
+      }
+    },
+    {
+      "description": "Unauthorized GET request to /sku-group/{skuGroupId}",
+      "providerState": "The token is invalid",
+      "request": {
+        "method": "GET",
+        "path": "/sku-group/1",
+        "headers": {
+          "Authorization": "Bearer invalid_token"
+        }
+      },
+      "response": {
+        "status": 401,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 401,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Forbidden GET request to /sku-group/{skuGroupId}",
+      "providerState": "The request is valid, the token is valid with an invalid scope",
+      "request": {
+        "method": "GET",
+        "path": "/sku-group/1",
+        "headers": {
+          "Authorization": "Bearer valid_token_invalid_scope"
+        }
+      },
+      "response": {
+        "status": 403,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 403,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Not Found GET request to /sku-group/{skuGroupId}",
+      "providerState": "A SKU Group with skuGroupId does not exist and the request is valid, the token is valid with an invalid scope",
+      "request": {
+        "method": "GET",
+        "path": "/sku/0",
+        "headers": {
+          "Authorization": "Bearer valid_token"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 404,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Successful GET request to /sku/{skuId}",
+      "providerState": "A SKU with skuIdD exists, the request is valid, the token is valid and has a valid scope",
+      "request": {
+        "method": "GET",
+        "path": "/sku/skuId_test",
+        "headers": {
+          "Authorization": "Bearer valid_token"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "skuId": "skuId_test",
+          "skuGroupId": 1,
+          "name": "Test sku name"
+        }
+      }
+    },
+    {
+      "description": "Unauthorized GET request to /sku/{skuId}",
+      "providerState": "The token is invalid",
+      "request": {
+        "method": "GET",
+        "path": "/sku/skuId_test",
+        "headers": {
+          "Authorization": "Bearer invalid_token"
+        }
+      },
+      "response": {
+        "status": 401,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 401,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Forbidden GET request to /sku/{skuId}",
+      "providerState": "The request is valid, the token is valid with an invalid scope",
+      "request": {
+        "method": "GET",
+        "path": "/sku/skuId_test",
+        "headers": {
+          "Authorization": "Bearer valid_token_invalid_scope"
+        }
+      },
+      "response": {
+        "status": 403,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 403,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "description": "Not Found GET request to /sku/{skuId}",
+      "providerState": "A SKU with skuId does not exist and the request is valid, the token is valid with an invalid scope",
+      "request": {
+        "method": "GET",
+        "path": "/sku/skuId_test_invalid",
+        "headers": {
+          "Authorization": "Bearer valid_token"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "errors": [
+            {
+              "code": 404,
+              "message": "Example error message"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

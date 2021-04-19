@@ -60,3 +60,4 @@ vendor
 # misc
 .ash_history
 .composer/
+pacts/

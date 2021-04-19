@@ -61,7 +61,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         $this->expectedStatusCode = '401';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The token is invalid')
@@ -80,7 +80,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         $this->expectedStatusCode = '403';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The request is valid, the token is valid with an invalid scope')
@@ -99,7 +99,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
 
         // Error code in response is 422
         $this->expectedStatusCode = '422';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The SKU Group with skuGroupId does not exist')
@@ -118,7 +118,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
 
         // Error code in response is 409
         $this->expectedStatusCode = '409';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('A SKU with skuId already exists')
@@ -137,7 +137,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The request body is invalid or missing')

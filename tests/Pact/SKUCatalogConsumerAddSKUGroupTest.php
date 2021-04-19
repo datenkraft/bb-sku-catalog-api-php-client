@@ -66,7 +66,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
 
         // Error code in response is 401
         $this->expectedStatusCode = '401';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The token is invalid')
@@ -86,7 +86,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
 
         // Error code in response is 403
         $this->expectedStatusCode = '403';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The request is valid, the token is valid with an invalid scope')
@@ -105,7 +105,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
-        $this->errorResponse['errors'][0]['code'] = $this->expectedStatusCode;
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
             ->given('The request body is invalid or missing')

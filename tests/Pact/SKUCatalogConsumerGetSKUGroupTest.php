@@ -23,6 +23,8 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
 
         $this->method = 'GET';
 
+        $this->token = getenv('VALID_TOKEN_SKU_GROUP_GET');
+
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token
         ];
@@ -35,8 +37,8 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
 
         $this->requestData = [];
         $this->responseData = [
-            'skuGroupId' => 1,
-            'name' => 'Test group name',
+            'skuGroupId' => $this->matcher->like(1),
+            'name' => 'SKU Group Test',
         ];
 
         $this->path = '/sku-group/' . $this->skuGroupIdValid;
@@ -85,7 +87,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
     public function testGetSKUGroupForbidden(): void
     {
         // Token with invalid scope
-        $this->token = 'valid_token_invalid_scope';
+        $this->token = getenv('VALID_TOKEN_SKU_ADD');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 403
@@ -105,7 +107,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
     public function testGetSKUGroupNotFound(): void
     {
         // Path with skuGroupID for non existent SKU Group
-        $this->path = '/sku/' . $this->skuGroupIdInvalid;
+        $this->path = '/sku-group/' . $this->skuGroupIdInvalid;
 
         // Error code in response is 404
         $this->expectedStatusCode = '404';
@@ -113,8 +115,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
 
         $this->builder
             ->given(
-                'A SKU Group with skuGroupId does not exist and ' .
-                'the request is valid, the token is valid with an invalid scope'
+                'A SKU Group with skuGroupId does not exist'
             )
             ->uponReceiving('Not Found GET request to /sku-group/{skuGroupId}');
 

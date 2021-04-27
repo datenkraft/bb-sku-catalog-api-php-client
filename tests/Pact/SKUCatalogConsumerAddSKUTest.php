@@ -20,6 +20,8 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
 
         $this->method = 'POST';
 
+        $this->token = getenv('VALID_TOKEN_SKU_ADD');
+
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token,
             'Content-Type' => 'application/json'
@@ -29,7 +31,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->requestData = [
             'skuId' => 'skuId_test',
             'skuGroupId' => 1,
-            'name' => 'Test sku name'
+            'name' => 'SKU Test'
         ];
         $this->responseData = $this->requestData;
 
@@ -44,8 +46,10 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->expectedStatusCode = '201';
 
         $this->builder
-            ->given('A SKU with skuIdD does not exist, a SKU Group with skuGroupId exists, ' .
-                'the request is valid, the token is valid and has a valid scope')
+            ->given(
+                'A SKU with skuIdD does not exist, a SKU Group with skuGroupId exists, ' .
+                'the request is valid, the token is valid and has a valid scope'
+            )
             ->uponReceiving('Successful POST request to /sku');
 
         $this->testSuccessResponse();
@@ -76,7 +80,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     public function testAddSKUForbidden(): void
     {
         // Token with invalid scope
-        $this->token = 'valid_token_invalid_scope';
+        $this->token = getenv('VALID_TOKEN_SKU_GROUP_GET');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         $this->expectedStatusCode = '403';
@@ -94,6 +98,9 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
      */
     public function testAddSKUUnprocessableEntity(): void
     {
+        // New SKU ID
+        $this->requestData['skuId'] = 'skuId_test_2';
+
         // SKU Group with skuGroupId does not exist
         $this->requestData['skuGroupId'] = 0;
 

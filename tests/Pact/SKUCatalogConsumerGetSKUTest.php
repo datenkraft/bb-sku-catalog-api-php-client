@@ -23,6 +23,8 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
         $this->method = 'GET';
 
+        $this->token = getenv('VALID_TOKEN_SKU_GET');
+
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token
         ];
@@ -37,7 +39,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
         $this->responseData = [
             'skuId' => $this->skuIdValid,
             'skuGroupId' => 1,
-            'name' => 'Test sku name'
+            'name' => 'SKU Test'
         ];
 
         $this->path = '/sku/' . $this->skuIdValid;
@@ -58,7 +60,6 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             ->uponReceiving('Successful GET request to /sku/{skuId}');
 
         $this->testSuccessResponse();
-
     }
 
     /**
@@ -87,7 +88,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
     public function testGetSKUForbidden(): void
     {
         // Token with invalid scope
-        $this->token = 'valid_token_invalid_scope';
+        $this->token = getenv('VALID_TOKEN_SKU_GROUP_ADD');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 403
@@ -115,8 +116,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
         $this->builder
             ->given(
-                'A SKU with skuId does not exist and ' .
-                'the request is valid, the token is valid with an invalid scope'
+                'A SKU with skuId does not exist'
             )
             ->uponReceiving('Not Found GET request to /sku/{skuId}');
 

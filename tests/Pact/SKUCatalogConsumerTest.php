@@ -5,6 +5,7 @@ namespace Pact;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use PhpPact\Consumer\InteractionBuilder;
+use PhpPact\Consumer\Matcher\Matcher;
 use PhpPact\Standalone\MockService\MockServerEnvConfig;
 use PHPUnit\Framework\TestCase;
 use PhpPact\Consumer\Model\ConsumerRequest;
@@ -37,6 +38,8 @@ abstract class SKUCatalogConsumerTest extends TestCase
     protected array $responseData;
     protected array $errorResponse;
 
+    protected Matcher $matcher;
+
 
     /**
      * @throws Exception
@@ -44,6 +47,9 @@ abstract class SKUCatalogConsumerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Matcher for interactions with the mock server
+        $this->matcher = new Matcher();
 
         // Initialize the config of the mock server from environment variables
         $this->config = new MockServerEnvConfig();
@@ -53,7 +59,8 @@ abstract class SKUCatalogConsumerTest extends TestCase
             fsockopen($this->config->getHost(), $this->config->getPort());
         } catch (Exception $exception) {
             throw new Exception(
-                'Mock server not running. Make sure the Testsuite was started with the PactTestListener: ' . $exception->getMessage()
+                'Mock server not running. Make sure the Testsuite was started with the PactTestListener: ' . $exception->getMessage(
+                )
             );
         }
 
@@ -65,14 +72,10 @@ abstract class SKUCatalogConsumerTest extends TestCase
             'errors' => [
                 [
                     'code' => '0',
-                    'message' => 'Example error message'
+                    'message' => $this->matcher->like('Example error message')
                 ]
             ]
         ];
-
-        // Authorization token for the request header
-        // To be replaced by an actually valid token later to successfully verify the contract with the provider
-        $this->token = 'valid_token';
     }
 
     protected function tearDown(): void
@@ -90,11 +93,14 @@ abstract class SKUCatalogConsumerTest extends TestCase
     {
         $this->prepareTest();
 
-        $response = $this->doRequest($this->method, $this->path, ['headers' => $this->requestHeaders, 'body' => json_encode($this->requestData)]);
+        $response = $this->doRequest(
+            $this->method,
+            $this->path,
+            ['headers' => $this->requestHeaders, 'body' => json_encode($this->requestData)]
+        );
 
         $this->assertEquals($this->expectedStatusCode, $response->getStatusCode());
         $this->assertJson($response->getBody());
-        $this->assertEquals($this->responseData, json_decode($response->getBody(), true));
     }
 
     /**
@@ -108,13 +114,26 @@ abstract class SKUCatalogConsumerTest extends TestCase
         $this->expectException($this->expectedExceptionClass);
         $this->expectExceptionMessageMatches('~' . $this->expectedStatusCode . '~');
 
-        $this->doRequest($this->method, $this->path, ['headers' => $this->requestHeaders, 'body' => json_encode($this->requestData)]);
+        $this->doRequest(
+            $this->method,
+            $this->path,
+            ['headers' => $this->requestHeaders, 'body' => json_encode($this->requestData)]
+        );
     }
 
-    protected function prepareTest():void
+    protected function prepareTest(): void
     {
-        $consumerRequest = $this->createConsumerRequest($this->method, $this->path, $this->requestHeaders, $this->requestData);
-        $providerResponse = $this->createProviderResponse($this->expectedStatusCode, $this->responseHeaders, $this->responseData);
+        $consumerRequest = $this->createConsumerRequest(
+            $this->method,
+            $this->path,
+            $this->requestHeaders,
+            $this->requestData
+        );
+        $providerResponse = $this->createProviderResponse(
+            $this->expectedStatusCode,
+            $this->responseHeaders,
+            $this->responseData
+        );
 
         $this->builder->with($consumerRequest)->willRespondWith($providerResponse);
     }
@@ -126,8 +145,12 @@ abstract class SKUCatalogConsumerTest extends TestCase
      * @param array $requestBody
      * @return ConsumerRequest
      */
-    protected function createConsumerRequest(string $method, string $path, array $requestHeaders, array $requestBody = []): ConsumerRequest
-    {
+    protected function createConsumerRequest(
+        string $method,
+        string $path,
+        array $requestHeaders,
+        array $requestBody = []
+    ): ConsumerRequest {
         $request = new ConsumerRequest();
         $request->setMethod($method)->setPath($path);
         foreach ($requestHeaders as $header => $value) {
@@ -145,8 +168,11 @@ abstract class SKUCatalogConsumerTest extends TestCase
      * @param array $responseBody
      * @return ProviderResponse
      */
-    protected function createProviderResponse(int $statusCode, array $responseHeaders, array $responseBody): ProviderResponse
-    {
+    protected function createProviderResponse(
+        int $statusCode,
+        array $responseHeaders,
+        array $responseBody
+    ): ProviderResponse {
         $response = new ProviderResponse();
         $response->setStatus($statusCode);
         foreach ($responseHeaders as $header => $value) {

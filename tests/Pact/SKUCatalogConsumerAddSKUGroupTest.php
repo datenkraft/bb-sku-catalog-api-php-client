@@ -20,6 +20,8 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
 
         $this->method = 'POST';
 
+        $this->token = getenv('VALID_TOKEN_SKU_GROUP_ADD');
+
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token,
             'Content-Type' => 'application/json'
@@ -29,10 +31,10 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         ];
 
         $this->requestData = [
-            'name' => 'Test group name'
+            'name' => 'SKU Group Test'
         ];
         $this->responseData = [
-            'skuGroupId' => 1,
+            'skuGroupId' => $this->matcher->like(1),
             'name' => $this->requestData['name'],
         ];
 
@@ -81,7 +83,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
     public function testAddSKUGroupForbidden(): void
     {
         // Token with invalid scope
-        $this->token = 'valid_token_invalid_scope';
+        $this->token = getenv('VALID_TOKEN_SKU_GET');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 403

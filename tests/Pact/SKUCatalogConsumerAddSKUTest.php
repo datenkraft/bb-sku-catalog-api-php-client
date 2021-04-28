@@ -153,4 +153,38 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->testErrorResponse();
     }
 
+    /**
+     * @throws GuzzleException
+     * @throws Exception
+     */
+    public function testAddSKUMultipleErrors()
+    {
+        // SKU with skuId already exists
+        $this->requestData['skuId'] = 'skuId_test_duplicate';
+
+        // SKU Group with skuGroupId does not exist
+        $this->requestData['skuGroupId'] = 0;
+
+        // Status code of the response is 400
+        $this->expectedStatusCode = '400';
+
+        // Error code of first error is 409
+        $this->errorResponse['errors'][0] = [
+            'code' => '409',
+            'message' => $this->matcher->like('Example error message'),
+        ];
+
+        // Error code of second error is 422
+        $this->errorResponse['errors'][1] = [
+            'code' => '422',
+            'message' => $this->matcher->like('Example error message'),
+        ];
+
+        $this->builder
+            ->given('A SKU with skuId already exists, a SKU Group with skuGroupId does not exist')
+            ->uponReceiving('POST request to /sku with already existent skuId and non-existent skuGroupId');
+
+        $this->testErrorResponse();
+    }
+
 }

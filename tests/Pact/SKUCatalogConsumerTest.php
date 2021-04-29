@@ -22,7 +22,6 @@ abstract class SKUCatalogConsumerTest extends TestCase
     protected InteractionBuilder $builder;
     protected MockServerEnvConfig $config;
 
-    //protected string $expectedExceptionClass = ClientException::class;
     protected string $expectedExceptionClass = GuzzleException::class;
 
     protected string $token;

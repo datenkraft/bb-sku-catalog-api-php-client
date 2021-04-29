@@ -1,0 +1,487 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SKU Catalog API",
+    "description": "API to manage and read the SKU Catalog",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "UNDEFINED",
+      "description": "Production server"
+    },
+    {
+      "url": "UNDEFINED",
+      "description": "Staging server"
+    },
+    {
+      "url": "https://localhost:30220",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/docs": {
+      "get": {
+        "tags": [
+          "docs"
+        ],
+        "summary": "Get the openapi documentation as json",
+        "description": "Get the openapi documentation as json",
+        "operationId": "getOpenApi",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/docs/openapi.{format}": {
+      "get": {
+        "tags": [
+          "docs"
+        ],
+        "summary": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+        "description": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+        "operationId": "getOpenApiInFormat",
+        "parameters": [
+          {
+            "name": "format",
+            "in": "path",
+            "description": "Openapi file format",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "yaml",
+                "json"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/sku": {
+      "post": {
+        "tags": [
+          "sku"
+        ],
+        "summary": "Add a SKU",
+        "description": "Add a SKU",
+        "operationId": "addSku",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addSkuRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addSkuResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuthAuthorization": [
+              "sku:add"
+            ]
+          }
+        ]
+      }
+    },
+    "/sku/{skuId}": {
+      "post": {
+        "tags": [
+          "sku"
+        ],
+        "summary": "Get a SKU by skuId",
+        "description": "Get a SKU by skuId",
+        "operationId": "getSku",
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "SKU Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getSkuResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuthAuthorization": [
+              "sku:get"
+            ]
+          }
+        ]
+      }
+    },
+    "/sku-group": {
+      "post": {
+        "tags": [
+          "sku-group"
+        ],
+        "summary": "Add a SKU Group",
+        "description": "Add a SKU Group",
+        "operationId": "addSkuGroup",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/addSkuGroupRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/addSkuGroupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuthAuthorization": [
+              "sku-group:add"
+            ]
+          }
+        ]
+      }
+    },
+    "/sku/{skuGroupId}": {
+      "post": {
+        "tags": [
+          "sku-group"
+        ],
+        "summary": "Get a SKU Group by skuGroupId",
+        "description": "Get a SKU Group by skuGroupId",
+        "operationId": "getSkuGroup",
+        "parameters": [
+          {
+            "name": "skuGroupId",
+            "in": "path",
+            "description": "SKU Group Id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/getSkuGroupResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oAuthAuthorization": [
+              "sku-group:get"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "errorModel": {
+        "properties": {
+          "errors": {
+            "description": "errors",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/error"
+            }
+          }
+        },
+        "type": "object"
+      },
+      "error": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "description": "Code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Message",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "sku": {
+        "required": [
+          "skuId",
+          "skuGroupId",
+          "name"
+        ],
+        "properties": {
+          "skuId": {
+            "description": "SKU Id",
+            "type": "string"
+          },
+          "skuGroupId": {
+            "description": "SKU Group Id",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Name",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "addSkuRequest": {
+        "$ref": "#/components/schemas/sku"
+      },
+      "addSkuResponse": {
+        "$ref": "#/components/schemas/sku"
+      },
+      "getSkuResponse": {
+        "$ref": "#/components/schemas/sku"
+      },
+      "skuGroup": {
+        "type": "object",
+        "allOf": [
+          {
+            "properties": {
+              "skuGroupId": {
+                "description": "SKU Group Id",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          {
+            "$ref": "#/components/schemas/newSkuGroup"
+          }
+        ]
+      },
+      "newSkuGroup": {
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "description": "Name",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "addSkuGroupRequest": {
+        "$ref": "#/components/schemas/newSkuGroup"
+      },
+      "addSkuGroupResponse": {
+        "$ref": "#/components/schemas/skuGroup"
+      },
+      "getSkuGroupResponse": {
+        "$ref": "#/components/schemas/skuGroup"
+      }
+    },
+    "securitySchemes": {
+      "oAuthAuthorization": {
+        "type": "oauth2",
+        "description": "OAuth2 Authorization",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "UNDEFINED",
+            "refreshUrl": "UNDEFINED",
+            "scopes": {
+              "sku:add": "Add SKUs to the catalog",
+              "sku:get": "Get SKUs from the catalog",
+              "sku-group:add": "Add SKU Groups to the catalog",
+              "sku-group:get": "Get SKU Groups from the catalog"
+            }
+          }
+        }
+      }
+    }
+  }
+}

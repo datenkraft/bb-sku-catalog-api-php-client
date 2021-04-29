@@ -52,7 +52,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful POST request to /sku');
 
-        $this->testSuccessResponse();
+        $this->executeTestSuccessResponse();
     }
 
     /**
@@ -71,7 +71,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized POST request to /sku');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -90,7 +90,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden POST request to /sku');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -112,7 +112,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The SKU Group with skuGroupId does not exist')
             ->uponReceiving('POST request to /sku with non-existent skuGroupId');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -131,7 +131,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('A SKU with skuId already exists')
             ->uponReceiving('POST request to /sku with already existent skuId');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -150,7 +150,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The request body is invalid or missing')
             ->uponReceiving('Bad POST request to /sku');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -184,7 +184,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('A SKU with skuId already exists, a SKU Group with skuGroupId does not exist')
             ->uponReceiving('POST request to /sku with already existent skuId and non-existent skuGroupId');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
 }

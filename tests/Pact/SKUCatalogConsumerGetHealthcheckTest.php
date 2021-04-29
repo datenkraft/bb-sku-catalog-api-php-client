@@ -47,6 +47,6 @@ class SKUCatalogConsumerGetHealthcheckTest extends SKUCatalogConsumerTest
             ->given('The GET request is valid')
             ->uponReceiving('Successful GET request to /healthcheck');
 
-        $this->testSuccessResponse();
+        $this->executeTestSuccessResponse();
     }
 }

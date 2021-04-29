@@ -59,7 +59,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful GET request to /sku/{skuId}');
 
-        $this->testSuccessResponse();
+        $this->executeTestSuccessResponse();
     }
 
     /**
@@ -79,7 +79,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized GET request to /sku/{skuId}');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -99,7 +99,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden GET request to /sku/{skuId}');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -120,6 +120,6 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Not Found GET request to /sku/{skuId}');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 }

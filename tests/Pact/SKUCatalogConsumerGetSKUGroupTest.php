@@ -58,7 +58,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful GET request to /sku-group/{skuGroupId}');
 
-        $this->testSuccessResponse();
+        $this->executeTestSuccessResponse();
     }
 
     /**
@@ -78,7 +78,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized GET request to /sku-group/{skuGroupId}');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -98,7 +98,7 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden GET request to /sku-group/{skuGroupId}');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -119,6 +119,6 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Not Found GET request to /sku-group/{skuGroupId}');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 }

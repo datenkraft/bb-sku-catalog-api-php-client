@@ -89,7 +89,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
     /**
      * @throws GuzzleException
      */
-    protected function testSuccessResponse(): void
+    protected function executeTestSuccessResponse(): void
     {
         $this->prepareTest();
 
@@ -106,7 +106,7 @@ abstract class SKUCatalogConsumerTest extends TestCase
     /**
      * @throws GuzzleException
      */
-    protected function testErrorResponse(): void
+    protected function executeTestErrorResponse(): void
     {
         $this->responseData = $this->errorResponse;
         $this->prepareTest();

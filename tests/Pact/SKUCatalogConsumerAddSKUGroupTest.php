@@ -54,7 +54,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful POST request to /sku-group');
 
-        $this->testSuccessResponse();
+        $this->executeTestSuccessResponse();
     }
 
     /**
@@ -74,7 +74,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized POST request to /sku-group');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -94,7 +94,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden POST request to /sku-group');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 
     /**
@@ -113,6 +113,6 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The request body is invalid or missing')
             ->uponReceiving('Bad POST request to /sku-group');
 
-        $this->testErrorResponse();
+        $this->executeTestErrorResponse();
     }
 }

@@ -27,12 +27,12 @@ class GetSkuGroup extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \J
 
     public function getMethod(): string
     {
-        return 'POST';
+        return 'GET';
     }
 
     public function getUri(): string
     {
-        return str_replace(['{skuGroupId}'], [$this->skuGroupId], '/sku/{skuGroupId}');
+        return str_replace(['{skuGroupId}'], [$this->skuGroupId], '/sku-group/{skuGroupId}');
     }
 
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
@@ -52,21 +52,21 @@ class GetSkuGroup extends \Jane\OpenApiRuntime\Client\BaseEndpoint implements \J
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupForbiddenException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupNotFoundException
      *
-     * @return null
+     * @return \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuGroup|null
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (200 === $status && mb_strpos($contentType, 'application/json') !== false) {
-            return json_decode($body);
+            return $serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuGroup', 'json');
         }
         if (401 === $status && mb_strpos($contentType, 'application/json') !== false) {
-            throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupUnauthorizedException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorModel', 'json'));
+            throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupUnauthorizedException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorResponse', 'json'));
         }
         if (403 === $status && mb_strpos($contentType, 'application/json') !== false) {
-            throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupForbiddenException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorModel', 'json'));
+            throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupForbiddenException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorResponse', 'json'));
         }
         if (404 === $status && mb_strpos($contentType, 'application/json') !== false) {
-            throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupNotFoundException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorModel', 'json'));
+            throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupNotFoundException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorResponse', 'json'));
         }
     }
 

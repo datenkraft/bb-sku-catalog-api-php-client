@@ -38,7 +38,8 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     /**
      * Add a SKU.
      *
-     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku $requestBody
+     * @param string                                                        $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\AddSkuUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\AddSkuForbiddenException
@@ -46,9 +47,9 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\AddSkuConflictException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\AddSkuBadRequestException
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku|\Psr\Http\Message\ResponseInterface|null
      */
-    public function addSku(\stdClass $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function addSku(Model\Sku $requestBody, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\AddSku($requestBody), $fetch);
     }
@@ -63,7 +64,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuForbiddenException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuNotFoundException
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku|\Psr\Http\Message\ResponseInterface|null
      */
     public function getSku(string $skuId, string $fetch = self::FETCH_OBJECT)
     {
@@ -73,15 +74,16 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
     /**
      * Add a SKU Group.
      *
-     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\NewSkuGroup $requestBody
+     * @param string                                                                $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\AddSkuGroupUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\AddSkuGroupForbiddenException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\AddSkuGroupBadRequestException
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuGroup|\Psr\Http\Message\ResponseInterface|null
      */
-    public function addSkuGroup(\stdClass $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function addSkuGroup(Model\NewSkuGroup $requestBody, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\AddSkuGroup($requestBody), $fetch);
     }
@@ -96,7 +98,7 @@ class Client extends \Jane\OpenApiRuntime\Client\Client
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupForbiddenException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupNotFoundException
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuGroup|\Psr\Http\Message\ResponseInterface|null
      */
     public function getSkuGroup(int $skuGroupId, string $fetch = self::FETCH_OBJECT)
     {

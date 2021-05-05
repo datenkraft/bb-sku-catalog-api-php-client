@@ -78,7 +78,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/addSkuRequest"
+                "$ref": "#/components/schemas/sku"
               }
             }
           }
@@ -89,7 +89,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/addSkuResponse"
+                  "$ref": "#/components/schemas/sku"
                 }
               }
             }
@@ -99,7 +99,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -109,7 +109,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -119,7 +119,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -129,7 +129,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -139,7 +139,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -155,7 +155,7 @@
       }
     },
     "/sku/{skuId}": {
-      "post": {
+      "get": {
         "tags": [
           "sku"
         ],
@@ -179,7 +179,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/getSkuResponse"
+                  "$ref": "#/components/schemas/sku"
                 }
               }
             }
@@ -189,7 +189,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -199,7 +199,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -209,7 +209,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -237,7 +237,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/addSkuGroupRequest"
+                "$ref": "#/components/schemas/newSkuGroup"
               }
             }
           }
@@ -248,7 +248,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/addSkuGroupResponse"
+                  "$ref": "#/components/schemas/skuGroup"
                 }
               }
             }
@@ -258,7 +258,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -268,7 +268,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -278,7 +278,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -293,8 +293,8 @@
         ]
       }
     },
-    "/sku/{skuGroupId}": {
-      "post": {
+    "/sku-group/{skuGroupId}": {
+      "get": {
         "tags": [
           "sku-group"
         ],
@@ -318,7 +318,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/getSkuGroupResponse"
+                  "$ref": "#/components/schemas/skuGroup"
                 }
               }
             }
@@ -328,7 +328,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -338,7 +338,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -348,7 +348,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/errorModel"
+                  "$ref": "#/components/schemas/errorResponse"
                 }
               }
             }
@@ -366,7 +366,7 @@
   },
   "components": {
     "schemas": {
-      "errorModel": {
+      "errorResponse": {
         "properties": {
           "errors": {
             "description": "errors",
@@ -417,15 +417,6 @@
         },
         "type": "object"
       },
-      "addSkuRequest": {
-        "$ref": "#/components/schemas/sku"
-      },
-      "addSkuResponse": {
-        "$ref": "#/components/schemas/sku"
-      },
-      "getSkuResponse": {
-        "$ref": "#/components/schemas/sku"
-      },
       "skuGroup": {
         "type": "object",
         "allOf": [
@@ -454,15 +445,6 @@
           }
         },
         "type": "object"
-      },
-      "addSkuGroupRequest": {
-        "$ref": "#/components/schemas/newSkuGroup"
-      },
-      "addSkuGroupResponse": {
-        "$ref": "#/components/schemas/skuGroup"
-      },
-      "getSkuGroupResponse": {
-        "$ref": "#/components/schemas/skuGroup"
       }
     },
     "securitySchemes": {

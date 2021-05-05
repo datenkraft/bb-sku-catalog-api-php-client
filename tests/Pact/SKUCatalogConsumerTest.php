@@ -11,7 +11,7 @@ use PhpPact\Consumer\Model\ConsumerRequest;
 use PhpPact\Consumer\Model\ProviderResponse;
 
 /**
- * Class SKUUsageConsumerTest
+ * Class SKUCatalogConsumerTest
  * @package Pact
  */
 abstract class SKUCatalogConsumerTest extends TestCase

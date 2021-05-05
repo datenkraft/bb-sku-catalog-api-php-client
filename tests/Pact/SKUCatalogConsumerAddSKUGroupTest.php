@@ -2,8 +2,12 @@
 
 namespace Pact;
 
+use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Client;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\NewSkuGroup;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SKUCatalogConsumerAddSKUTest
@@ -41,9 +45,6 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         $this->path = '/sku-group';
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUGroupSuccess(): void
     {
         $this->expectedStatusCode = '201';
@@ -54,12 +55,9 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful POST request to /sku-group');
 
-        $this->executeTestSuccessResponse();
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUGroupUnauthorized(): void
     {
         // Invalid token
@@ -74,12 +72,10 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized POST request to /sku-group');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUGroupForbidden(): void
     {
         // Token with invalid scope
@@ -94,16 +90,14 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden POST request to /sku-group');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUGroupBadRequest(): void
     {
         // name is not defined
-        unset($this->requestData['name']);
+        $this->requestData['name'] = '';
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
@@ -113,6 +107,24 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The request body is invalid or missing')
             ->uponReceiving('Bad POST request to /sku-group');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    /**
+     * @throws ConfigException
+     */
+    protected function doClientRequest(): ResponseInterface
+    {
+        $factory = new ClientFactory(
+            ['clientId' => 'test', 'clientSecret' => 'test', 'oAuthTokenUrl' => 'test', 'oAuthScopes' => ['test']]
+        );
+        $factory->setToken($this->token);
+        $client = Client::createWithFactory($factory, $this->config->getBaseUri());
+
+        $skuGroup = (new NewSkuGroup())
+            ->setName($this->requestData['name']);
+
+        return $client->addSkuGroup($skuGroup, Client::FETCH_RESPONSE);
     }
 }

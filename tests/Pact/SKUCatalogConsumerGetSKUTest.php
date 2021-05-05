@@ -2,8 +2,11 @@
 
 namespace Pact;
 
+use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Client;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SKUCatalogConsumerAddSKUTest
@@ -11,6 +14,7 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 {
+    protected string $skuId;
     protected string $skuIdValid;
     protected string $skuIdInvalid;
 
@@ -35,19 +39,18 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
         $this->skuIdValid = 'skuId_test';
         $this->skuIdInvalid = 'skuId_test_invalid';
 
+        $this->skuId = $this->skuIdValid;
+
         $this->requestData = [];
         $this->responseData = [
-            'skuId' => $this->skuIdValid,
+            'skuId' => $this->skuId,
             'skuGroupId' => 1,
             'name' => 'SKU Test'
         ];
 
-        $this->path = '/sku/' . $this->skuIdValid;
+        $this->path = '/sku/' . $this->skuId;
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUSuccess(): void
     {
         $this->expectedStatusCode = '200';
@@ -59,12 +62,9 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful GET request to /sku/{skuId}');
 
-        $this->executeTestSuccessResponse();
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUUnauthorized(): void
     {
         // Invalid token
@@ -79,12 +79,10 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized GET request to /sku/{skuId}');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUForbidden(): void
     {
         // Token with invalid scope
@@ -99,16 +97,15 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden GET request to /sku/{skuId}');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUNotFound(): void
     {
         // Path with skuId for non existent SKU
-        $this->path = '/sku/' . $this->skuIdInvalid;
+        $this->skuId = $this->skuIdInvalid;
+        $this->path = '/sku/' . $this->skuId;
 
         // Error code in response is 404
         $this->expectedStatusCode = '404';
@@ -120,6 +117,21 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Not Found GET request to /sku/{skuId}');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    /**
+     * @throws ConfigException
+     */
+    protected function doClientRequest(): ResponseInterface
+    {
+        $factory = new ClientFactory(
+            ['clientId' => 'test', 'clientSecret' => 'test', 'oAuthTokenUrl' => 'test', 'oAuthScopes' => ['test']]
+        );
+        $factory->setToken($this->token);
+        $client = Client::createWithFactory($factory, $this->config->getBaseUri());
+
+        return $client->getSku($this->skuId, Client::FETCH_RESPONSE);
     }
 }

@@ -2,8 +2,12 @@
 
 namespace Pact;
 
+use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Client;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SKUCatalogConsumerAddSKUTest
@@ -38,9 +42,6 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->path = '/sku';
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUSuccess(): void
     {
         $this->expectedStatusCode = '201';
@@ -52,12 +53,9 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful POST request to /sku');
 
-        $this->executeTestSuccessResponse();
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUUnauthorized(): void
     {
         // Invalid token
@@ -71,12 +69,10 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized POST request to /sku');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUForbidden(): void
     {
         // Token with invalid scope
@@ -90,12 +86,10 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden POST request to /sku');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUUnprocessableEntity(): void
     {
         // New SKU ID
@@ -112,12 +106,10 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The SKU Group with skuGroupId does not exist')
             ->uponReceiving('POST request to /sku with non-existent skuGroupId');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUConflict(): void
     {
         // SKU with skuId already exists
@@ -131,16 +123,14 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('A SKU with skuId already exists')
             ->uponReceiving('POST request to /sku with already existent skuId');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testAddSKUBadRequest(): void
     {
         // skuId is not defined
-        unset($this->requestData['skuId']);
+        $this->requestData['skuId'] = '';
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
@@ -150,11 +140,11 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('The request body is invalid or missing')
             ->uponReceiving('Bad POST request to /sku');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
     /**
-     * @throws GuzzleException
      * @throws Exception
      */
     public function testAddSKUMultipleErrors()
@@ -184,7 +174,26 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->given('A SKU with skuId already exists, a SKU Group with skuGroupId does not exist')
             ->uponReceiving('POST request to /sku with already existent skuId and non-existent skuGroupId');
 
-        $this->executeTestErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
+    /**
+     * @throws ConfigException
+     */
+    protected function doClientRequest(): ResponseInterface
+    {
+        $factory = new ClientFactory(
+            ['clientId' => 'test', 'clientSecret' => 'test', 'oAuthTokenUrl' => 'test', 'oAuthScopes' => ['test']]
+        );
+        $factory->setToken($this->token);
+        $client = Client::createWithFactory($factory, $this->config->getBaseUri());
+
+        $sku = (new Sku())
+            ->setSkuGroupId($this->requestData['skuGroupId'])
+            ->setSkuId($this->requestData['skuId'])
+            ->setName($this->requestData['name']);
+
+        return $client->addSku($sku, Client::FETCH_RESPONSE);
+    }
 }

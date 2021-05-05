@@ -16,7 +16,7 @@
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "Datenkraft\\Backbone\\Client\\SkuUsageApi\\": "src/"
+      "Datenkraft\\Backbone\\Client\\SkuCatalogApi\\": "src/"
     }
   },
   "require-dev": {

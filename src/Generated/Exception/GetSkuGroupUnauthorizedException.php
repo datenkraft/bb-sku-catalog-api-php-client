@@ -12,16 +12,16 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
 class GetSkuGroupUnauthorizedException extends \RuntimeException implements ClientException
 {
-    private $errorModel;
+    private $errorResponse;
 
-    public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorModel $errorModel)
+    public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse)
     {
         parent::__construct('Unauthorized', 401);
-        $this->errorModel = $errorModel;
+        $this->errorResponse = $errorResponse;
     }
 
-    public function getErrorModel()
+    public function getErrorResponse()
     {
-        return $this->errorModel;
+        return $this->errorResponse;
     }
 }

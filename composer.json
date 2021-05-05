@@ -3,7 +3,8 @@
   "description": "The SKU Catalog API PHP Client enables you to work with the SKU Catalog API",
   "type": "library",
   "require": {
-    "php": "^7.2"
+    "php": "^7.2",
+    "datenkraft/bb-base-api-php-client": "@dev"
   },
   "license": "MIT",
   "authors": [
@@ -29,5 +30,11 @@
     "classmap": [
       "tests/"
     ]
-  }
+  },
+  "repositories":[
+    {
+      "type": "git-bitbucket",
+      "url" : "https://bitbucket.org/datenkraft/bb-base-api-php-client"
+    }
+  ]
 }

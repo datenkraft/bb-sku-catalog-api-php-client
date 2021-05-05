@@ -30,11 +30,5 @@
     "classmap": [
       "tests/"
     ]
-  },
-  "repositories":[
-    {
-      "type": "git-bitbucket",
-      "url" : "https://bitbucket.org/datenkraft/bb-base-api-php-client"
-    }
-  ]
+  }
 }

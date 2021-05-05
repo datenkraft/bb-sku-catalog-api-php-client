@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd14ecfbe76d28cba1423d6d5e431622",
+    "content-hash": "9656b3fbb22cd784260ea095fcb522cf",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -74,11 +74,17 @@
         },
         {
             "name": "datenkraft/bb-base-api-php-client",
-            "version": "dev-feature/BB-7-as-a-software-architect-i-want-an-s",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/datenkraft/bb-base-api-php-client.git",
+                "reference": "c8480eb431d7c860a7a0640801065485f6ebf585"
+            },
             "dist": {
-                "type": "path",
-                "url": "../bb-base-api-php-client",
-                "reference": "455f70f831bb8856821f5f34d2557a5cc9718f31"
+                "type": "zip",
+                "url": "https://bitbucket.org/datenkraft/bb-base-api-php-client/get/c8480eb431d7c860a7a0640801065485f6ebf585.zip",
+                "reference": "c8480eb431d7c860a7a0640801065485f6ebf585",
+                "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^7.3",
@@ -88,6 +94,7 @@
                 "php": "^7.2"
             },
             "require-dev": {
+                "ext-json": "*",
                 "phpunit/phpunit": "^9.5",
                 "squizlabs/php_codesniffer": "^3.6"
             },
@@ -97,11 +104,7 @@
                     "Datenkraft\\Backbone\\Client\\BaseApi\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "classmap": [
-                    "tests/"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -111,15 +114,17 @@
                 }
             ],
             "description": "API Client that enables you to work with Backbone PHP Client packages",
+            "homepage": "https://bitbucket.org/datenkraft/bb-base-api-php-client",
             "keywords": [
                 "apiclient",
                 "backbone",
                 "base",
                 "php"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "source": "https://bitbucket.org/datenkraft/bb-base-api-php-client/src/c8480eb431d7c860a7a0640801065485f6ebf585/?at=1.0.0"
+            },
+            "time": "2021-05-05T15:42:11+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -7672,9 +7677,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "datenkraft/bb-base-api-php-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

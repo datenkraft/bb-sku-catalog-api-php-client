@@ -25,10 +25,13 @@ require 'path/to/vendor/autoload.php';
 ~~~~
 
 ## Using the library
+
 The library can be used to communicate with the SKU Catalog Resource Server.
 The Client includes functionalities for every endpoint defined in the openapi.json.
 The Client also is auto generated with jane-php using an openapi.json file.
-###Creating a client
+
+### Creating a client
+
 ~~~~ php
 require 'path/to/vendor/autoload.php';
 
@@ -46,7 +49,7 @@ $factory->setToken($this->token);
 $client = Client::createWithFactory($factory);
 ~~~~
 
-###Example Endpoint Add SKU
+### Example Endpoint: Add SKU
 ~~~~ php
 $skuGroupId = 123;  // int
 $skuId = "skuId";   // string 

@@ -45,7 +45,6 @@ $config['clientSecret'] = $clientSecret;
 $config['oAuthScopes'] = $oAuthScopes;
 
 $factory = new ClientFactory($config);
-$factory->setToken($this->token);
 $client = Client::createWithFactory($factory);
 ~~~~
 
@@ -61,8 +60,7 @@ $sku->setSkuGroupId($skuGroupId)
     ->setName($name);
 
 $response = $client->addSku($sku);
-echo "Response:";
-echo $response->getBody();
+$response; // sku
 ~~~~
 
 ## Licence

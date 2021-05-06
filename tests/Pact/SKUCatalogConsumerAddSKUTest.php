@@ -3,6 +3,7 @@
 namespace Pact;
 
 use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\AuthException;
 use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Client;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku;
@@ -41,7 +42,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
 
         $this->path = '/sku';
     }
-
+    
     public function testAddSKUSuccess(): void
     {
         $this->expectedStatusCode = '201';
@@ -179,7 +180,9 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     }
 
     /**
+     * @return ResponseInterface
      * @throws ConfigException
+     * @throws AuthException
      */
     protected function doClientRequest(): ResponseInterface
     {

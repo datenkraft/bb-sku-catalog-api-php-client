@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9656b3fbb22cd784260ea095fcb522cf",
+    "content-hash": "fefe8ef3e10b459b6c66d94c43a70d8c",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -3203,16 +3203,16 @@
         },
         {
             "name": "composer/xdebug-handler",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/xdebug-handler.git",
-                "reference": "31d57697eb1971712a08031cfaff5a846d10bdf5"
+                "reference": "964adcdd3a28bf9ed5d9ac6450064e0d71ed7496"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/31d57697eb1971712a08031cfaff5a846d10bdf5",
-                "reference": "31d57697eb1971712a08031cfaff5a846d10bdf5",
+                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/964adcdd3a28bf9ed5d9ac6450064e0d71ed7496",
+                "reference": "964adcdd3a28bf9ed5d9ac6450064e0d71ed7496",
                 "shasum": ""
             },
             "require": {
@@ -3247,7 +3247,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/xdebug-handler/issues",
-                "source": "https://github.com/composer/xdebug-handler/tree/2.0.0"
+                "source": "https://github.com/composer/xdebug-handler/tree/2.0.1"
             },
             "funding": [
                 {
@@ -3263,7 +3263,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-09T19:40:06+00:00"
+            "time": "2021-05-05T19:37:51+00:00"
         },
         {
             "name": "daverandom/libdns",

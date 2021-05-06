@@ -3,6 +3,7 @@
 namespace Pact;
 
 use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\AuthException;
 use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Client;
 use Exception;
@@ -121,7 +122,9 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
     }
 
     /**
+     * @return ResponseInterface
      * @throws ConfigException
+     * @throws AuthException
      */
     protected function doClientRequest(): ResponseInterface
     {

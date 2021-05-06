@@ -16,13 +16,13 @@ class Client extends Generated\Client
     /**
      * @param ClientFactory $clientFactory
      * @param string|null $endpointUrl
-     * @return static
+     * @return static|\Jane\OpenApiRuntime\Client\Client
      * @throws AuthException
      */
     public static function createWithFactory(ClientFactory $clientFactory, string $endpointUrl = null): self
     {
-        $endpointUrl = $endpointUrl ?? getenv('X_DATENKRAFT_SKU_CATALOG_URL') ?: null;
-
+        $endpointUrl = $endpointUrl ?? getenv('X_DATENKRAFT_SKU_CATALOG_API_URL') ?: null;
         return $clientFactory->createClient(static::class, $endpointUrl);
     }
+
 }

@@ -38,7 +38,7 @@ require 'path/to/vendor/autoload.php';
 // Valid clientId, clientSecret and requested scopes
 $clientId = '1234';
 $clientSecret = 'abcd';
-$oAuthScopes = ['sku:add', 'skugroup:add'];
+$oAuthScopes = ['sku:add', 'sku-group:add'];
 
 $config['clientId'] = $clientId;
 $config['clientSecret'] = $clientSecret;

@@ -2,8 +2,12 @@
 
 namespace Pact;
 
+use Datenkraft\Backbone\Client\BaseApi\ClientFactory;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\AuthException;
+use Datenkraft\Backbone\Client\BaseApi\Exceptions\ConfigException;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Client;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SKUCatalogConsumerAddSKUTest
@@ -11,6 +15,7 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
 {
+    protected int $skuGroupId;
     protected int $skuGroupIdValid;
     protected int $skuGroupIdInvalid;
 
@@ -35,18 +40,17 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
         $this->skuGroupIdValid = 1;
         $this->skuGroupIdInvalid = 0;
 
+        $this->skuGroupId = $this->skuGroupIdValid;
+
         $this->requestData = [];
         $this->responseData = [
-            'skuGroupId' => $this->matcher->like(1),
+            'skuGroupId' => $this->skuGroupId,
             'name' => 'SKU Group Test',
         ];
 
-        $this->path = '/sku-group/' . $this->skuGroupIdValid;
+        $this->path = '/sku-group/' . $this->skuGroupId;
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUGroupSuccess(): void
     {
         $this->expectedStatusCode = '200';
@@ -58,12 +62,9 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Successful GET request to /sku-group/{skuGroupId}');
 
-        $this->testSuccessResponse();
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUGroupUnauthorized(): void
     {
         // Invalid token
@@ -78,12 +79,10 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The token is invalid')
             ->uponReceiving('Unauthorized GET request to /sku-group/{skuGroupId}');
 
-        $this->testErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUGroupForbidden(): void
     {
         // Token with invalid scope
@@ -98,16 +97,15 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             ->given('The request is valid, the token is valid with an invalid scope')
             ->uponReceiving('Forbidden GET request to /sku-group/{skuGroupId}');
 
-        $this->testErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
     }
 
-    /**
-     * @throws GuzzleException
-     */
     public function testGetSKUGroupNotFound(): void
     {
-        // Path with skuGroupID for non existent SKU Group
-        $this->path = '/sku-group/' . $this->skuGroupIdInvalid;
+        // Set skuGroupId to an invalid skuGroupId for a non existent SKU Group
+        $this->skuGroupId = $this->skuGroupIdInvalid;
+        $this->path = '/sku-group/' . $this->skuGroupId;
 
         // Error code in response is 404
         $this->expectedStatusCode = '404';
@@ -119,6 +117,23 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             )
             ->uponReceiving('Not Found GET request to /sku-group/{skuGroupId}');
 
-        $this->testErrorResponse();
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    /**
+     * @return ResponseInterface
+     * @throws ConfigException
+     * @throws AuthException
+     */
+    protected function doClientRequest(): ResponseInterface
+    {
+        $factory = new ClientFactory(
+            ['clientId' => 'test', 'clientSecret' => 'test', 'oAuthTokenUrl' => 'test', 'oAuthScopes' => ['test']]
+        );
+        $factory->setToken($this->token);
+        $client = Client::createWithFactory($factory, $this->config->getBaseUri());
+
+        return $client->getSkuGroup($this->skuGroupId, Client::FETCH_RESPONSE);
     }
 }

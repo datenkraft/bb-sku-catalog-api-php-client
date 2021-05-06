@@ -47,17 +47,17 @@ Thumbs.db
 *.mov
 *.wmv
 
-# IDE specific
-.idea
+# Vendor
+vendor/
 
-# Framework specific
-vendor
+# Pacts
+pacts/
 
 # PHPUnit
-/.phpunit.result.cache
-.phpunit.cache
+.phpunit.cache/
+.phpunit.result.cache
 
-# misc
-.ash_history
 .composer/
-pacts/
+.ash_history
+.php_cs.cache
+

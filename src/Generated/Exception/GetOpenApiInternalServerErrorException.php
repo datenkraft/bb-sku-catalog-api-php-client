@@ -2,12 +2,12 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
-class AddSkuBadRequestException extends BadRequestException
+class GetOpenApiInternalServerErrorException extends InternalServerErrorException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse)
     {
-        parent::__construct('Bad Request', 400);
+        parent::__construct('Server error', 500);
         $this->errorResponse = $errorResponse;
     }
     public function getErrorResponse()

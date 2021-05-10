@@ -23,7 +23,7 @@
     "phpunit/phpunit": "^9.5",
     "pact-foundation/pact-php": "^7.0",
     "squizlabs/php_codesniffer": "^3.6",
-    "jane-php/open-api-3": "~6.1.0",
+    "jane-php/open-api-3": "^6.3.0",
     "friendsofphp/php-cs-fixer": "^2.18"
   },
   "autoload-dev": {

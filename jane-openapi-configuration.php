@@ -4,6 +4,5 @@ return [
     'openapi-file' => __DIR__ . '/openapi.json',
     'namespace' => 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated',
     'directory' => __DIR__ . '/src/Generated',
-    'use-fixer' => true,
     'throw-unexpected-status-code' => true,
 ];

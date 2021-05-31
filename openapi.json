@@ -208,7 +208,7 @@
         "security": [
           {
             "oAuthAuthorization": [
-              "sku:add"
+              "sku:post"
             ]
           }
         ]
@@ -387,7 +387,7 @@
         "security": [
           {
             "oAuthAuthorization": [
-              "sku-group:add"
+              "sku-group:post"
             ]
           }
         ]
@@ -576,10 +576,10 @@
             "tokenUrl": "UNDEFINED",
             "refreshUrl": "UNDEFINED",
             "scopes": {
-              "sku:add": "Add SKUs to the catalog",
+              "sku:post": "Add SKUs to the catalog",
               "sku:get": "Get SKUs from the catalog",
-              "sku-group:add": "Add SKU Groups to the catalog",
-              "sku-group:get": "Get SKU Groups from the catalog"
+              "sku-group:get": "Get SKU Groups from the catalog",
+              "sku-group:post": "Add SKU Groups to the catalog"
             }
           }
         }

@@ -25,7 +25,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
 
         $this->method = 'POST';
 
-        $this->token = getenv('VALID_TOKEN_SKU_GROUP_ADD');
+        $this->token = getenv('VALID_TOKEN_SKU_GROUP_POST');
 
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token,

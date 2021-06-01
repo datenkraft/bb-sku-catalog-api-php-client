@@ -11,10 +11,10 @@ use Exception;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class SKUCatalogConsumerAddSKUTest
+ * Class SKUCatalogConsumerPostSKUTest
  * @package Pact
  */
-class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
+class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
 {
     /**
      * @throws Exception
@@ -43,7 +43,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->path = '/sku';
     }
     
-    public function testAddSKUSuccess(): void
+    public function testPostSKUSuccess(): void
     {
         $this->expectedStatusCode = '201';
 
@@ -57,7 +57,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUUnauthorized(): void
+    public function testPostSKUUnauthorized(): void
     {
         // Invalid token
         $this->token = 'invalid_token';
@@ -74,7 +74,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUForbidden(): void
+    public function testPostSKUForbidden(): void
     {
         // Token with invalid scope
         $this->token = getenv('VALID_TOKEN_SKU_GROUP_GET');
@@ -91,7 +91,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUUnprocessableEntity(): void
+    public function testPostSKUUnprocessableEntity(): void
     {
         // New SKU ID
         $this->requestData['skuId'] = 'skuId_test_2';
@@ -111,7 +111,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUConflict(): void
+    public function testPostSKUConflict(): void
     {
         // SKU with skuId already exists
         $this->requestData['skuId'] = 'skuId_test_duplicate';
@@ -128,7 +128,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUBadRequest(): void
+    public function testPostSKUBadRequest(): void
     {
         // skuId is not defined
         $this->requestData['skuId'] = '';
@@ -148,7 +148,7 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
     /**
      * @throws Exception
      */
-    public function testAddSKUMultipleErrors()
+    public function testPostSKUMultipleErrors()
     {
         // SKU with skuId already exists
         $this->requestData['skuId'] = 'skuId_test_duplicate';
@@ -197,6 +197,6 @@ class SKUCatalogConsumerAddSKUTest extends SKUCatalogConsumerTest
             ->setSkuId($this->requestData['skuId'])
             ->setName($this->requestData['name']);
 
-        return $client->addSku($sku, Client::FETCH_RESPONSE);
+        return $client->postSku($sku, Client::FETCH_RESPONSE);
     }
 }

@@ -11,10 +11,10 @@ use Exception;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class SKUCatalogConsumerAddSKUTest
+ * Class SKUCatalogConsumerPostSKUTest
  * @package Pact
  */
-class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
+class SKUCatalogConsumerPostSKUGroupTest extends SKUCatalogConsumerTest
 {
     /**
      * @throws Exception
@@ -46,7 +46,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         $this->path = '/sku-group';
     }
 
-    public function testAddSKUGroupSuccess(): void
+    public function testPostSKUGroupSuccess(): void
     {
         $this->expectedStatusCode = '201';
 
@@ -59,7 +59,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUGroupUnauthorized(): void
+    public function testPostSKUGroupUnauthorized(): void
     {
         // Invalid token
         $this->token = 'invalid_token';
@@ -77,7 +77,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUGroupForbidden(): void
+    public function testPostSKUGroupForbidden(): void
     {
         // Token with invalid scope
         $this->token = getenv('VALID_TOKEN_SKU_GET');
@@ -95,7 +95,7 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
-    public function testAddSKUGroupBadRequest(): void
+    public function testPostSKUGroupBadRequest(): void
     {
         // name is not defined
         $this->requestData['name'] = '';
@@ -128,6 +128,6 @@ class SKUCatalogConsumerAddSKUGroupTest extends SKUCatalogConsumerTest
         $skuGroup = (new NewSkuGroup())
             ->setName($this->requestData['name']);
 
-        return $client->addSkuGroup($skuGroup, Client::FETCH_RESPONSE);
+        return $client->postSkuGroup($skuGroup, Client::FETCH_RESPONSE);
     }
 }

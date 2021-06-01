@@ -112,7 +112,7 @@
         ],
         "summary": "Add a SKU",
         "description": "Add a SKU",
-        "operationId": "addSku",
+        "operationId": "postSku",
         "requestBody": {
           "required": true,
           "content": {
@@ -311,7 +311,7 @@
         ],
         "summary": "Add a SKU Group",
         "description": "Add a SKU Group",
-        "operationId": "addSkuGroup",
+        "operationId": "postSkuGroup",
         "requestBody": {
           "required": true,
           "content": {
@@ -576,8 +576,8 @@
             "tokenUrl": "UNDEFINED",
             "refreshUrl": "UNDEFINED",
             "scopes": {
-              "sku:post": "Add SKUs to the catalog",
               "sku:get": "Get SKUs from the catalog",
+              "sku:post": "Add SKUs to the catalog",
               "sku-group:get": "Get SKU Groups from the catalog",
               "sku-group:post": "Add SKU Groups to the catalog"
             }

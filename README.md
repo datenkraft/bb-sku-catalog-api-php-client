@@ -59,7 +59,7 @@ $sku->setSkuGroupId($skuGroupId)
     ->setSkuId($skuId)
     ->setName($name);
 
-$response = $client->addSku($sku);
+$response = $client->postSku($sku);
 $response; // sku
 ~~~~
 

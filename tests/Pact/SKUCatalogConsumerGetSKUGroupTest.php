@@ -10,7 +10,7 @@ use Exception;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class SKUCatalogConsumerAddSKUTest
+ * Class SKUCatalogConsumerPostSKUTest
  * @package Pact
  */
 class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest

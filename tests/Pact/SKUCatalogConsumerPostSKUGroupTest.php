@@ -39,7 +39,7 @@ class SKUCatalogConsumerPostSKUGroupTest extends SKUCatalogConsumerTest
             'name' => 'SKU Group Test'
         ];
         $this->responseData = [
-            'skuGroupId' => $this->matcher->like(1),
+            'skuGroupId' => $this->matcher->like('1e4176bf-3f77-41e3-a8ee-8e9b519a8998'),
             'name' => $this->requestData['name'],
         ];
 

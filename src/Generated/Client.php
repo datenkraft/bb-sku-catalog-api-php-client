@@ -85,7 +85,7 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
     /**
      * Get a SKU Group by skuGroupId
      *
-     * @param int $skuGroupId SKU Group Id
+     * @param string $skuGroupId SKU Group Id
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupForbiddenException
@@ -95,7 +95,7 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
      *
      * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuGroup|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
      */
-    public function getSkuGroup(int $skuGroupId, string $fetch = self::FETCH_OBJECT)
+    public function getSkuGroup(string $skuGroupId, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetSkuGroup($skuGroupId), $fetch);
     }

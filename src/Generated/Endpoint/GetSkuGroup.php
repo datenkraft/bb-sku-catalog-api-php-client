@@ -8,9 +8,9 @@ class GetSkuGroup extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Ru
     /**
      * Get a SKU Group by skuGroupId
      *
-     * @param int $skuGroupId SKU Group Id
+     * @param string $skuGroupId SKU Group Id
      */
-    public function __construct(int $skuGroupId)
+    public function __construct(string $skuGroupId)
     {
         $this->skuGroupId = $skuGroupId;
     }

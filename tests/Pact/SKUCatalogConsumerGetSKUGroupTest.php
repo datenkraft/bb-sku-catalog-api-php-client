@@ -15,9 +15,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
 {
-    protected int $skuGroupId;
-    protected int $skuGroupIdValid;
-    protected int $skuGroupIdInvalid;
+    protected string $skuGroupId;
+    protected string $skuGroupIdValid;
+    protected string $skuGroupIdInvalid;
 
     /**
      * @throws Exception
@@ -37,8 +37,8 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
             'Content-Type' => 'application/json'
         ];
 
-        $this->skuGroupIdValid = 1;
-        $this->skuGroupIdInvalid = 0;
+        $this->skuGroupIdValid = '5baca897-679d-4773-90ba-59528096237e';
+        $this->skuGroupIdInvalid = '129ae2f8-e088-43f8-a029-6d2fa863f496';
 
         $this->skuGroupId = $this->skuGroupIdValid;
 

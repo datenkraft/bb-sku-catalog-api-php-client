@@ -37,7 +37,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             'Content-Type' => 'application/json'
         ];
 
-        $this->skuIdValid = 'skuId_test';
+        $this->skuIdValid = 'skuId_test_exists';
         $this->skuIdInvalid = 'skuId_test_invalid';
 
         $this->skuId = $this->skuIdValid;
@@ -45,7 +45,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
         $this->requestData = [];
         $this->responseData = [
             'skuId' => $this->skuId,
-            'skuGroupId' => 1,
+            'skuGroupId' => '5baca897-679d-4773-90ba-59528096237e',
             'name' => 'SKU Test'
         ];
 

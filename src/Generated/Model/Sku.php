@@ -13,7 +13,7 @@ class Sku
     /**
      * SKU Group Id
      *
-     * @var int
+     * @var string
      */
     protected $skuGroupId;
     /**
@@ -46,20 +46,20 @@ class Sku
     /**
      * SKU Group Id
      *
-     * @return int
+     * @return string
      */
-    public function getSkuGroupId() : int
+    public function getSkuGroupId() : string
     {
         return $this->skuGroupId;
     }
     /**
      * SKU Group Id
      *
-     * @param int $skuGroupId
+     * @param string $skuGroupId
      *
      * @return self
      */
-    public function setSkuGroupId(int $skuGroupId) : self
+    public function setSkuGroupId(string $skuGroupId) : self
     {
         $this->skuGroupId = $skuGroupId;
         return $this;

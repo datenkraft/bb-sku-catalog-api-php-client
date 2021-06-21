@@ -35,14 +35,14 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
 
         $this->requestData = [
             'skuId' => 'skuId_test',
-            'skuGroupId' => 1,
+            'skuGroupId' => '5baca897-679d-4773-90ba-59528096237e',
             'name' => 'SKU Test'
         ];
         $this->responseData = $this->requestData;
 
         $this->path = '/sku';
     }
-    
+
     public function testPostSKUSuccess(): void
     {
         $this->expectedStatusCode = '201';
@@ -97,7 +97,7 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
         $this->requestData['skuId'] = 'skuId_test_2';
 
         // SKU Group with skuGroupId does not exist
-        $this->requestData['skuGroupId'] = 0;
+        $this->requestData['skuGroupId'] = '129ae2f8-e088-43f8-a029-6d2fa863f496';
 
         // Error code in response is 422
         $this->expectedStatusCode = '422';
@@ -114,7 +114,7 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
     public function testPostSKUConflict(): void
     {
         // SKU with skuId already exists
-        $this->requestData['skuId'] = 'skuId_test_duplicate';
+        $this->requestData['skuId'] = 'skuId_test_exists';
 
         // Error code in response is 409
         $this->expectedStatusCode = '409';
@@ -151,10 +151,10 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
     public function testPostSKUMultipleErrors()
     {
         // SKU with skuId already exists
-        $this->requestData['skuId'] = 'skuId_test_duplicate';
+        $this->requestData['skuId'] = 'skuId_test_exists';
 
         // SKU Group with skuGroupId does not exist
-        $this->requestData['skuGroupId'] = 0;
+        $this->requestData['skuGroupId'] = '129ae2f8-e088-43f8-a029-6d2fa863f496';
 
         // Status code of the response is 400
         $this->expectedStatusCode = '400';

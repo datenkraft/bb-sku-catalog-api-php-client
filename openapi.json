@@ -408,7 +408,7 @@
             "description": "SKU Group Id",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -516,6 +516,7 @@
         "type": "object"
       },
       "sku": {
+        "description": "Class SkuResource",
         "required": [
           "skuId",
           "skuGroupId",
@@ -528,7 +529,7 @@
           },
           "skuGroupId": {
             "description": "SKU Group Id",
-            "type": "integer"
+            "type": "string"
           },
           "name": {
             "description": "Name",
@@ -538,13 +539,14 @@
         "type": "object"
       },
       "skuGroup": {
+        "description": "SKU Group",
         "type": "object",
         "allOf": [
           {
             "properties": {
               "skuGroupId": {
                 "description": "SKU Group Id",
-                "type": "integer"
+                "type": "string"
               }
             },
             "type": "object"
@@ -555,6 +557,7 @@
         ]
       },
       "newSkuGroup": {
+        "description": "New SKU Group",
         "required": [
           "name"
         ],

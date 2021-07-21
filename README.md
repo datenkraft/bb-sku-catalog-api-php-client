@@ -51,12 +51,12 @@ $client = Client::createWithFactory($factory);
 ### Example Endpoint: Add SKU
 ~~~~ php
 $skuGroupId = 123;  // int
-$skuId = "skuId";   // string 
+$skuCode = "skuCode";   // string 
 $name = "name";     // string
 
 $sku = new Sku();
 $sku->setSkuGroupId($skuGroupId)
-    ->setSkuId($skuId)
+    ->setSkuCode($skuCode)
     ->setName($name);
 
 $response = $client->postSku($sku);

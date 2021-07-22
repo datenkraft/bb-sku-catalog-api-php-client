@@ -34,7 +34,7 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
         $this->responseHeaders = ['Content-Type' => 'application/json'];
 
         $this->requestData = [
-            'skuId' => 'skuId_test',
+            'skuCode' => 'skuCode_test',
             'skuGroupId' => '5baca897-679d-4773-90ba-59528096237e',
             'name' => 'SKU Test'
         ];
@@ -49,7 +49,7 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
 
         $this->builder
             ->given(
-                'A SKU with skuIdD does not exist, a SKU Group with skuGroupId exists, ' .
+                'A SKU with skuCode does not exist, a SKU Group with skuGroupId exists, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
             ->uponReceiving('Successful POST request to /sku');
@@ -94,7 +94,7 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
     public function testPostSKUUnprocessableEntity(): void
     {
         // New SKU ID
-        $this->requestData['skuId'] = 'skuId_test_2';
+        $this->requestData['skuCode'] = 'skuCode_test_2';
 
         // SKU Group with skuGroupId does not exist
         $this->requestData['skuGroupId'] = '129ae2f8-e088-43f8-a029-6d2fa863f496';
@@ -113,16 +113,16 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
 
     public function testPostSKUConflict(): void
     {
-        // SKU with skuId already exists
-        $this->requestData['skuId'] = 'skuId_test_exists';
+        // SKU with skuCode already exists
+        $this->requestData['skuCode'] = 'skuCode_test_exists';
 
         // Error code in response is 409
         $this->expectedStatusCode = '409';
         $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
-            ->given('A SKU with skuId already exists')
-            ->uponReceiving('POST request to /sku with already existent skuId');
+            ->given('A SKU with skuCode already exists')
+            ->uponReceiving('POST request to /sku with already existent skuCode');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -130,8 +130,8 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
 
     public function testPostSKUBadRequest(): void
     {
-        // skuId is not defined
-        $this->requestData['skuId'] = '';
+        // skuCode is not defined
+        $this->requestData['skuCode'] = '';
 
         // Error code in response is 400
         $this->expectedStatusCode = '400';
@@ -150,8 +150,8 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
      */
     public function testPostSKUMultipleErrors()
     {
-        // SKU with skuId already exists
-        $this->requestData['skuId'] = 'skuId_test_exists';
+        // SKU with skuCode already exists
+        $this->requestData['skuCode'] = 'skuCode_test_exists';
 
         // SKU Group with skuGroupId does not exist
         $this->requestData['skuGroupId'] = '129ae2f8-e088-43f8-a029-6d2fa863f496';
@@ -172,8 +172,8 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
         ];
 
         $this->builder
-            ->given('A SKU with skuId already exists, a SKU Group with skuGroupId does not exist')
-            ->uponReceiving('POST request to /sku with already existent skuId and non-existent skuGroupId');
+            ->given('A SKU with skuCode already exists, a SKU Group with skuGroupId does not exist')
+            ->uponReceiving('POST request to /sku with already existent skuCode and non-existent skuGroupId');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -194,7 +194,7 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
 
         $sku = (new Sku())
             ->setSkuGroupId($this->requestData['skuGroupId'])
-            ->setSkuId($this->requestData['skuId'])
+            ->setSkuCode($this->requestData['skuCode'])
             ->setName($this->requestData['name']);
 
         return $client->postSku($sku, Client::FETCH_RESPONSE);

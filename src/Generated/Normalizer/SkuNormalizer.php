@@ -36,8 +36,8 @@ class SkuNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('skuId', $data)) {
-            $object->setSkuId($data['skuId']);
+        if (\array_key_exists('skuCode', $data)) {
+            $object->setSkuCode($data['skuCode']);
         }
         if (\array_key_exists('skuGroupId', $data)) {
             $object->setSkuGroupId($data['skuGroupId']);
@@ -50,7 +50,7 @@ class SkuNormalizer implements DenormalizerInterface, NormalizerInterface, Denor
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        $data['skuId'] = $object->getSkuId();
+        $data['skuCode'] = $object->getSkuCode();
         $data['skuGroupId'] = $object->getSkuGroupId();
         $data['name'] = $object->getName();
         return $data;

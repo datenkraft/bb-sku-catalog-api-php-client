@@ -5,11 +5,11 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 class Sku
 {
     /**
-     * SKU Id
+     * SKU Code
      *
      * @var string
      */
-    protected $skuId;
+    protected $skuCode;
     /**
      * SKU Group Id
      *
@@ -23,24 +23,24 @@ class Sku
      */
     protected $name;
     /**
-     * SKU Id
+     * SKU Code
      *
      * @return string
      */
-    public function getSkuId() : string
+    public function getSkuCode() : string
     {
-        return $this->skuId;
+        return $this->skuCode;
     }
     /**
-     * SKU Id
+     * SKU Code
      *
-     * @param string $skuId
+     * @param string $skuCode
      *
      * @return self
      */
-    public function setSkuId(string $skuId) : self
+    public function setSkuCode(string $skuCode) : self
     {
-        $this->skuId = $skuId;
+        $this->skuCode = $skuCode;
         return $this;
     }
     /**

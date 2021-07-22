@@ -4,15 +4,15 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint;
 
 class GetSku extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\BaseEndpoint implements \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\Endpoint
 {
-    protected $skuId;
+    protected $skuCode;
     /**
-     * Get a SKU by skuId
+     * Get a SKU by skuCode
      *
-     * @param string $skuId SKU Id
+     * @param string $skuCode SKU Code
      */
-    public function __construct(string $skuId)
+    public function __construct(string $skuCode)
     {
-        $this->skuId = $skuId;
+        $this->skuCode = $skuCode;
     }
     use \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\EndpointTrait;
     public function getMethod() : string
@@ -21,7 +21,7 @@ class GetSku extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
     }
     public function getUri() : string
     {
-        return str_replace(array('{skuId}'), array($this->skuId), '/sku/{skuId}');
+        return str_replace(array('{skuCode}'), array($this->skuCode), '/sku/{skuCode}');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null) : array
     {

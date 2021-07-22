@@ -15,9 +15,9 @@ use Psr\Http\Message\ResponseInterface;
  */
 class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 {
-    protected string $skuId;
-    protected string $skuIdValid;
-    protected string $skuIdInvalid;
+    protected string $skuCode;
+    protected string $skuCodeValid;
+    protected string $skuCodeInvalid;
 
     /**
      * @throws Exception
@@ -37,19 +37,19 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
             'Content-Type' => 'application/json'
         ];
 
-        $this->skuIdValid = 'skuId_test_exists';
-        $this->skuIdInvalid = 'skuId_test_invalid';
+        $this->skuCodeValid = 'skuCode_test_exists';
+        $this->skuCodeInvalid = 'skuCode_test_invalid';
 
-        $this->skuId = $this->skuIdValid;
+        $this->skuCode = $this->skuCodeValid;
 
         $this->requestData = [];
         $this->responseData = [
-            'skuId' => $this->skuId,
+            'skuCode' => $this->skuCode,
             'skuGroupId' => '5baca897-679d-4773-90ba-59528096237e',
             'name' => 'SKU Test'
         ];
 
-        $this->path = '/sku/' . $this->skuId;
+        $this->path = '/sku/' . $this->skuCode;
     }
 
     public function testGetSKUSuccess(): void
@@ -58,10 +58,10 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
         $this->builder
             ->given(
-                'A SKU with skuIdD exists, ' .
+                'A SKU with skuCode exists, ' .
                 'the request is valid, the token is valid and has a valid scope'
             )
-            ->uponReceiving('Successful GET request to /sku/{skuId}');
+            ->uponReceiving('Successful GET request to /sku/{skuCode}');
 
         $this->beginTest();
     }
@@ -78,7 +78,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
         $this->builder
             ->given('The token is invalid')
-            ->uponReceiving('Unauthorized GET request to /sku/{skuId}');
+            ->uponReceiving('Unauthorized GET request to /sku/{skuCode}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -96,7 +96,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
         $this->builder
             ->given('The request is valid, the token is valid with an invalid scope')
-            ->uponReceiving('Forbidden GET request to /sku/{skuId}');
+            ->uponReceiving('Forbidden GET request to /sku/{skuCode}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -104,19 +104,17 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
     public function testGetSKUNotFound(): void
     {
-        // Path with skuId for non existent SKU
-        $this->skuId = $this->skuIdInvalid;
-        $this->path = '/sku/' . $this->skuId;
+        // Path with skuCode for non existent SKU
+        $this->skuCode = $this->skuCodeInvalid;
+        $this->path = '/sku/' . $this->skuCode;
 
         // Error code in response is 404
         $this->expectedStatusCode = '404';
         $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
-            ->given(
-                'A SKU with skuId does not exist'
-            )
-            ->uponReceiving('Not Found GET request to /sku/{skuId}');
+            ->given('A SKU with skuCode does not exist')
+            ->uponReceiving('Not Found GET request to /sku/{skuCode}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();
@@ -135,6 +133,6 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
         $factory->setToken($this->token);
         $client = Client::createWithFactory($factory, $this->config->getBaseUri());
 
-        return $client->getSku($this->skuId, Client::FETCH_RESPONSE);
+        return $client->getSku($this->skuCode, Client::FETCH_RESPONSE);
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
-class GetAuthRoleIdentityCollectionEndpointForbiddenException extends ForbiddenException
+class PostAuthRoleIdentityCollectionUnprocessableEntityException extends UnprocessableEntityException
 {
     private $errorResponse;
     public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse)
     {
-        parent::__construct('Forbidden', 403);
+        parent::__construct('Unprocessable Entity', 422);
         $this->errorResponse = $errorResponse;
     }
     public function getErrorResponse()

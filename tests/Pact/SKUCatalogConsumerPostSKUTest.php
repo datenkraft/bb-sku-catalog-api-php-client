@@ -36,7 +36,8 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
         $this->requestData = [
             'skuCode' => 'skuCode_test',
             'skuGroupId' => '5baca897-679d-4773-90ba-59528096237e',
-            'name' => 'SKU Test'
+            'name' => 'SKU Test',
+            'unit' => 'Test Unit'
         ];
         $this->responseData = $this->requestData;
 
@@ -111,6 +112,9 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
         $this->beginTest();
     }
 
+    /**
+     * @throws Exception
+     */
     public function testPostSKUConflict(): void
     {
         // SKU with skuCode already exists
@@ -118,7 +122,19 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
 
         // Error code in response is 409
         $this->expectedStatusCode = '409';
-        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
+        $this->errorResponse['errors'][0] = [
+            'code' => strval($this->expectedStatusCode),
+            'extra' => [
+                'skus' => $this->matcher->eachLike(
+                    [
+                        'skuCode' => 'skuCode_test',
+                        'skuGroupId' => $this->matcher->uuid(),
+                        'name' => $this->matcher->like('SKU Test'),
+                        'unit' => $this->matcher->like('Test Unit')
+                    ]
+                )
+            ]
+        ];
 
         $this->builder
             ->given('A SKU with skuCode already exists')
@@ -195,7 +211,8 @@ class SKUCatalogConsumerPostSKUTest extends SKUCatalogConsumerTest
         $sku = (new Sku())
             ->setSkuGroupId($this->requestData['skuGroupId'])
             ->setSkuCode($this->requestData['skuCode'])
-            ->setName($this->requestData['name']);
+            ->setName($this->requestData['name'])
+            ->setUnit($this->requestData['unit']);
 
         return $client->postSku($sku, Client::FETCH_RESPONSE);
     }

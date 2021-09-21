@@ -51,9 +51,7 @@ class SKUCatalogConsumerPostSKUGroupTest extends SKUCatalogConsumerTest
         $this->expectedStatusCode = '201';
 
         $this->builder
-            ->given(
-                'The request is valid, the token is valid and has a valid scope'
-            )
+            ->given('The request is valid, the token is valid and has a valid scope')
             ->uponReceiving('Successful POST request to /sku-group');
 
         $this->beginTest();

@@ -23,6 +23,12 @@ class Sku
      */
     protected $name;
     /**
+     * Unit
+     *
+     * @var string|null
+     */
+    protected $unit;
+    /**
      * SKU Code
      *
      * @return string
@@ -83,6 +89,27 @@ class Sku
     public function setName(string $name) : self
     {
         $this->name = $name;
+        return $this;
+    }
+    /**
+     * Unit
+     *
+     * @return string|null
+     */
+    public function getUnit() : ?string
+    {
+        return $this->unit;
+    }
+    /**
+     * Unit
+     *
+     * @param string|null $unit
+     *
+     * @return self
+     */
+    public function setUnit(?string $unit) : self
+    {
+        $this->unit = $unit;
         return $this;
     }
 }

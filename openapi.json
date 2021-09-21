@@ -423,7 +423,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
+                                    "$ref": "#/components/schemas/postSkuConflictErrorResponse"
                                 }
                             }
                         }
@@ -520,6 +520,16 @@
                     },
                     "404": {
                         "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -707,6 +717,16 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
                     "500": {
                         "description": "Server error",
                         "content": {
@@ -769,6 +789,40 @@
                 },
                 "type": "object"
             },
+            "postSkuConflictErrorResponse": {
+                "properties": {
+                    "errors": {
+                        "description": "errors",
+                        "type": "array",
+                        "items": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                {
+                                    "properties": {
+                                        "extra": {
+                                            "description": "Extra",
+                                            "properties": {
+                                                "skus": {
+                                                    "description": "SKUs",
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/sku"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "authPermissionResource": {
                 "required": [
                     "permissionCode",
@@ -790,29 +844,6 @@
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/authPermissionResource"
-                }
-            },
-            "authRoleIdentityResource": {
-                "required": [
-                    "roleCode",
-                    "identityId"
-                ],
-                "properties": {
-                    "roleCode": {
-                        "description": "Role Code",
-                        "type": "string"
-                    },
-                    "identityId": {
-                        "description": "Identity ID",
-                        "type": "string"
-                    }
-                },
-                "type": "object"
-            },
-            "authRoleIdentityCollection": {
-                "type": "array",
-                "items": {
-                    "$ref": "#/components/schemas/authRoleIdentityResource"
                 }
             },
             "authRoleResource": {
@@ -838,6 +869,57 @@
                     "$ref": "#/components/schemas/authRoleResource"
                 }
             },
+            "authRoleIdentityResource": {
+                "required": [
+                    "roleCode",
+                    "identityId"
+                ],
+                "properties": {
+                    "roleCode": {
+                        "description": "Role Code",
+                        "type": "string"
+                    },
+                    "identityId": {
+                        "description": "Identity ID",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "authRoleIdentityCollection": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/authRoleIdentityResource"
+                }
+            },
+            "sku": {
+                "description": "Class SkuResource",
+                "required": [
+                    "skuCode",
+                    "skuGroupId",
+                    "name"
+                ],
+                "properties": {
+                    "skuCode": {
+                        "description": "SKU Code",
+                        "type": "string"
+                    },
+                    "skuGroupId": {
+                        "description": "SKU Group Id",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name",
+                        "type": "string"
+                    },
+                    "unit": {
+                        "nullable": true,
+                        "description": "Unit",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "skuGroup": {
                 "description": "SKU Group",
                 "type": "object",
@@ -862,29 +944,6 @@
                     "name"
                 ],
                 "properties": {
-                    "name": {
-                        "description": "Name",
-                        "type": "string"
-                    }
-                },
-                "type": "object"
-            },
-            "sku": {
-                "description": "Class SkuResource",
-                "required": [
-                    "skuCode",
-                    "skuGroupId",
-                    "name"
-                ],
-                "properties": {
-                    "skuCode": {
-                        "description": "SKU Code",
-                        "type": "string"
-                    },
-                    "skuGroupId": {
-                        "description": "SKU Group Id",
-                        "type": "string"
-                    },
                     "name": {
                         "description": "Name",
                         "type": "string"

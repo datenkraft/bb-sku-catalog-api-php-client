@@ -46,7 +46,8 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
         $this->responseData = [
             'skuCode' => $this->skuCode,
             'skuGroupId' => '5baca897-679d-4773-90ba-59528096237e',
-            'name' => 'SKU Test'
+            'name' => 'SKU Test',
+            'unit' => 'Test Unit'
         ];
 
         $this->path = '/sku/' . $this->skuCode;
@@ -115,6 +116,24 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
         $this->builder
             ->given('A SKU with skuCode does not exist')
             ->uponReceiving('Not Found GET request to /sku/{skuCode}');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    public function testGetSKUBadRequest(): void
+    {
+        // SkuCode contains an invalid character
+        $this->skuCode = 'sku.test';
+        $this->path = '/sku/' . $this->skuCode;
+
+        // Error code in response is 400
+        $this->expectedStatusCode = '400';
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
+
+        $this->builder
+            ->given('The skuCode contains an invalid character')
+            ->uponReceiving('Bad GET request to /sku/{skuCode}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();

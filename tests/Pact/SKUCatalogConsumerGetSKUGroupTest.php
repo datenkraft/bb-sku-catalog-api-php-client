@@ -112,10 +112,26 @@ class SKUCatalogConsumerGetSKUGroupTest extends SKUCatalogConsumerTest
         $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
 
         $this->builder
-            ->given(
-                'A SKU Group with skuGroupId does not exist'
-            )
+            ->given('A SKU Group with skuGroupId does not exist')
             ->uponReceiving('Not Found GET request to /sku-group/{skuGroupId}');
+
+        $this->responseData = $this->errorResponse;
+        $this->beginTest();
+    }
+
+    public function testGetSKUGroupBadRequest(): void
+    {
+        // SkuId is not a valid uuid
+        $this->skuGroupId = 'non_uuid';
+        $this->path = '/sku-group/' . $this->skuGroupId;
+
+        // Error code in response is 400
+        $this->expectedStatusCode = '400';
+        $this->errorResponse['errors'][0]['code'] = strval($this->expectedStatusCode);
+
+        $this->builder
+            ->given('The skuId is not a valid uuid')
+            ->uponReceiving('Bad GET request to /sku-group/{skuGroupId}');
 
         $this->responseData = $this->errorResponse;
         $this->beginTest();

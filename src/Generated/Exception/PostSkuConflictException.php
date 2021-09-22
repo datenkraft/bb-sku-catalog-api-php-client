@@ -4,14 +4,14 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
 class PostSkuConflictException extends ConflictException
 {
-    private $errorResponse;
-    public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse)
+    private $postSkuConflictErrorResponse;
+    public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuConflictErrorResponse $postSkuConflictErrorResponse)
     {
         parent::__construct('Conflict', 409);
-        $this->errorResponse = $errorResponse;
+        $this->postSkuConflictErrorResponse = $postSkuConflictErrorResponse;
     }
-    public function getErrorResponse()
+    public function getPostSkuConflictErrorResponse()
     {
-        return $this->errorResponse;
+        return $this->postSkuConflictErrorResponse;
     }
 }

@@ -6,7 +6,6 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
 {
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
-     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleCollectionBadRequestException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleCollectionUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleCollectionForbiddenException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleCollectionInternalServerErrorException
@@ -19,8 +18,26 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetAuthRoleCollection(), $fetch);
     }
     /**
+     * Delete one or more role to identity assignments in this resource server
+     *
+     * @param \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthRoleIdentityResource[] $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
-     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleIdentityCollectionBadRequestException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\DeleteAuthRoleIdentityCollectionBadRequestException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\DeleteAuthRoleIdentityCollectionUnauthorizedException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\DeleteAuthRoleIdentityCollectionForbiddenException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\DeleteAuthRoleIdentityCollectionNotFoundException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\DeleteAuthRoleIdentityCollectionUnprocessableEntityException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\DeleteAuthRoleIdentityCollectionInternalServerErrorException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
+     *
+     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
+     */
+    public function deleteAuthRoleIdentityCollection(array $requestBody, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\DeleteAuthRoleIdentityCollection($requestBody), $fetch);
+    }
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleIdentityCollectionUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleIdentityCollectionForbiddenException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleIdentityCollectionInternalServerErrorException

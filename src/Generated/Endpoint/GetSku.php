@@ -70,6 +70,6 @@ class GetSku extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
     }
     public function getAuthenticationScopes() : array
     {
-        return array('oAuthAuthorization');
+        return array();
     }
 }

@@ -68,6 +68,6 @@ class PostSkuGroup extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\R
     }
     public function getAuthenticationScopes() : array
     {
-        return array('oAuthAuthorization');
+        return array();
     }
 }

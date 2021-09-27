@@ -531,14 +531,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-sku-catalog-api/sku:post"
-                        ]
-                    }
-                ]
+                }
             }
         },
         "/sku/{skuCode}": {
@@ -631,14 +624,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-sku-catalog-api/sku:get"
-                        ]
-                    }
-                ]
+                }
             }
         },
         "/sku-group": {
@@ -720,14 +706,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-sku-catalog-api/sku-group:post"
-                        ]
-                    }
-                ]
+                }
             }
         },
         "/sku-group/{skuGroupId}": {
@@ -820,14 +799,7 @@
                             }
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": [
-                            "bb-sku-catalog-api/sku-group:get"
-                        ]
-                    }
-                ]
+                }
             }
         }
     },
@@ -1033,12 +1005,7 @@
                     "clientCredentials": {
                         "tokenUrl": "UNDEFINED",
                         "refreshUrl": "UNDEFINED",
-                        "scopes": {
-                            "bb-sku-catalog-api/sku:get": "Get SKUs from the SKU Catalog API",
-                            "bb-sku-catalog-api/sku:post": "Add SKUs to the SKU Catalog API",
-                            "bb-sku-catalog-api/sku-group:get": "Get SKU Groups from the SKU Catalog API",
-                            "bb-sku-catalog-api/sku-group:post": "Add SKU Groups to the SKU Catalog API"
-                        }
+                        "scopes": {}
                     }
                 }
             }

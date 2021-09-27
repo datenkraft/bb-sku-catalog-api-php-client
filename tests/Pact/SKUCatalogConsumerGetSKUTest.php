@@ -28,7 +28,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
         $this->method = 'GET';
 
-        $this->token = getenv('VALID_TOKEN_SKU_GET');
+        $this->token = getenv('CONTRACT_TEST_CLIENT_TOKEN');
 
         $this->requestHeaders = [
             'Authorization' => 'Bearer ' . $this->token
@@ -87,8 +87,7 @@ class SKUCatalogConsumerGetSKUTest extends SKUCatalogConsumerTest
 
     public function testGetSKUForbidden(): void
     {
-        // Token with invalid scope
-        $this->token = getenv('VALID_TOKEN_SKU_GROUP_POST');
+        $this->token = getenv('CONTRACT_TEST_CLIENT_WITHOUT_PERMISSIONS_TOKEN');
         $this->requestHeaders['Authorization'] = 'Bearer ' . $this->token;
 
         // Error code in response is 403

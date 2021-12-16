@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class SkuGroup
+class SkuGroupResource
 {
     /**
      * SKU Group Id

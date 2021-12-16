@@ -628,6 +628,97 @@
             }
         },
         "/sku-group": {
+            "get": {
+                "tags": [
+                    "sku-group"
+                ],
+                "summary": "Query sku-groups by skuCodes",
+                "description": "Query sku-groups by skuCodes",
+                "operationId": "getSkuGroupCollection",
+                "parameters": [
+                    {
+                        "name": "filter[skuCodes]",
+                        "in": "query",
+                        "description": "skuCode filter",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/skuGroupCollection"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "sku-group"
@@ -651,7 +742,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/skuGroup"
+                                    "$ref": "#/components/schemas/skuGroupResource"
                                 }
                             }
                         }
@@ -734,7 +825,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/skuGroup"
+                                    "$ref": "#/components/schemas/skuGroupResource"
                                 }
                             }
                         }
@@ -965,7 +1056,7 @@
                 },
                 "type": "object"
             },
-            "skuGroup": {
+            "skuGroupResource": {
                 "description": "SKU Group",
                 "type": "object",
                 "allOf": [
@@ -995,6 +1086,12 @@
                     }
                 },
                 "type": "object"
+            },
+            "skuGroupCollection": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/skuGroupResource"
+                }
             }
         },
         "securitySchemes": {
@@ -1003,7 +1100,7 @@
                 "description": "OAuth2 Authorization",
                 "flows": {
                     "clientCredentials": {
-                        "tokenUrl": "UNDEFINED",
+                        "tokenUrl": "https://authentication-api.conqore.niceshops.com/oauth/token",
                         "refreshUrl": "UNDEFINED",
                         "scopes": {}
                     }

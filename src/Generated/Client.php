@@ -95,9 +95,29 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetOpenApiInFormat($format), $fetch);
     }
     /**
+     * Query skus by skuCodes
+     *
+     * @param array $queryParameters {
+     *     @var string $filter[skuCodes] skuCodes filter
+     * }
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuCollectionUnauthorizedException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuCollectionForbiddenException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuCollectionNotFoundException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuCollectionBadRequestException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuCollectionInternalServerErrorException
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
+     *
+     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource[]|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
+     */
+    public function getSkuCollection(array $queryParameters = array(), string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetSkuCollection($queryParameters), $fetch);
+    }
+    /**
      * Add a SKU
      *
-     * @param \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku $requestBody 
+     * @param \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource $requestBody 
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PostSkuUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PostSkuForbiddenException
@@ -107,9 +127,9 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PostSkuInternalServerErrorException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
      *
-     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
+     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
      */
-    public function postSku(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku $requestBody, string $fetch = self::FETCH_OBJECT)
+    public function postSku(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource $requestBody, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\PostSku($requestBody), $fetch);
     }
@@ -125,17 +145,17 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuInternalServerErrorException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
      *
-     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Sku|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
+     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse|\Psr\Http\Message\ResponseInterface
      */
     public function getSku(string $skuCode, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetSku($skuCode), $fetch);
     }
     /**
-     * Query sku-groups by skuCodes
+     * Query sku-groups by skuGroupIds
      *
      * @param array $queryParameters {
-     *     @var string $filter[skuCodes] skuCode filter
+     *     @var string $filter[skuGroupIds] skuGroupIds filter
      * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuGroupCollectionUnauthorizedException

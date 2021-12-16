@@ -433,6 +433,97 @@
             }
         },
         "/sku": {
+            "get": {
+                "tags": [
+                    "sku"
+                ],
+                "summary": "Query skus by skuCodes",
+                "description": "Query skus by skuCodes",
+                "operationId": "getSkuCollection",
+                "parameters": [
+                    {
+                        "name": "filter[skuCodes]",
+                        "in": "query",
+                        "description": "skuCodes filter",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/skuResourceCollection"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "sku"
@@ -445,7 +536,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/sku"
+                                "$ref": "#/components/schemas/skuResource"
                             }
                         }
                     }
@@ -456,7 +547,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/sku"
+                                    "$ref": "#/components/schemas/skuResource"
                                 }
                             }
                         }
@@ -559,7 +650,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/sku"
+                                    "$ref": "#/components/schemas/skuResource"
                                 }
                             }
                         }
@@ -632,14 +723,14 @@
                 "tags": [
                     "sku-group"
                 ],
-                "summary": "Query sku-groups by skuCodes",
-                "description": "Query sku-groups by skuCodes",
+                "summary": "Query sku-groups by skuGroupIds",
+                "description": "Query sku-groups by skuGroupIds",
                 "operationId": "getSkuGroupCollection",
                 "parameters": [
                     {
-                        "name": "filter[skuCodes]",
+                        "name": "filter[skuGroupIds]",
                         "in": "query",
-                        "description": "skuCode filter",
+                        "description": "skuGroupIds filter",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -652,7 +743,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/skuGroupCollection"
+                                    "$ref": "#/components/schemas/skuGroupResourceCollection"
                                 }
                             }
                         }
@@ -944,7 +1035,7 @@
                                                     "description": "SKUs",
                                                     "type": "array",
                                                     "items": {
-                                                        "$ref": "#/components/schemas/sku"
+                                                        "$ref": "#/components/schemas/skuResource"
                                                     }
                                                 }
                                             },
@@ -1028,7 +1119,7 @@
                     "$ref": "#/components/schemas/authRoleIdentityResource"
                 }
             },
-            "sku": {
+            "skuResource": {
                 "description": "Class SkuResource",
                 "required": [
                     "skuCode",
@@ -1055,6 +1146,13 @@
                     }
                 },
                 "type": "object"
+            },
+            "skuResourceCollection": {
+                "description": "Class SkuResourceCollection",
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/skuResource"
+                }
             },
             "skuGroupResource": {
                 "description": "SKU Group",
@@ -1087,7 +1185,8 @@
                 },
                 "type": "object"
             },
-            "skuGroupCollection": {
+            "skuGroupResourceCollection": {
+                "description": "Class SkuGroupResourceCollection",
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/skuGroupResource"

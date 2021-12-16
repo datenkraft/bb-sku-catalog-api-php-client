@@ -39,7 +39,7 @@ class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements Denormali
         if (\array_key_exists('skus', $data)) {
             $values = array();
             foreach ($data['skus'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\Sku', 'json', $context);
+                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource', 'json', $context);
             }
             $object->setSkus($values);
         }

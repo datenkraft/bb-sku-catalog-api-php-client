@@ -7,13 +7,13 @@ class PostSkuConflictErrorResponseErrorsItemextra
     /**
      * SKUs
      *
-     * @var Sku[]
+     * @var SkuResource[]
      */
     protected $skus;
     /**
      * SKUs
      *
-     * @return Sku[]
+     * @return SkuResource[]
      */
     public function getSkus() : array
     {
@@ -22,7 +22,7 @@ class PostSkuConflictErrorResponseErrorsItemextra
     /**
      * SKUs
      *
-     * @param Sku[] $skus
+     * @param SkuResource[] $skus
      *
      * @return self
      */

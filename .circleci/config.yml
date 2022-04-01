@@ -26,7 +26,7 @@ jobs:
             touch ~/.ssh/known_hosts
             ssh-keyscan -H github.com >> ~/.ssh/known_hosts
             git remote add github git@github.com:datenkraft/bb-sku-catalog-api-php-client.git
-            git push --set-upstream github v1
+            git push github v1 --force
             git push github --tags
 workflows:
   version: 2

@@ -5,10 +5,11 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint;
 class GetSkuCollection extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\BaseEndpoint implements \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\Endpoint
 {
     /**
-     * Query skus by skuCodes
+     * Query skus by skuCodes or skuGroupIds. At least one of those two options must be given.
      *
      * @param array $queryParameters {
      *     @var string $filter[skuCodes] skuCodes filter
+     *     @var string $filter[skuGroupIds] skuGroupIds filter
      * }
      */
     public function __construct(array $queryParameters = array())
@@ -35,10 +36,11 @@ class GetSkuCollection extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generat
     protected function getQueryOptionsResolver() : \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('filter[skuCodes]'));
-        $optionsResolver->setRequired(array('filter[skuCodes]'));
+        $optionsResolver->setDefined(array('filter[skuCodes]', 'filter[skuGroupIds]'));
+        $optionsResolver->setRequired(array());
         $optionsResolver->setDefaults(array());
         $optionsResolver->setAllowedTypes('filter[skuCodes]', array('string'));
+        $optionsResolver->setAllowedTypes('filter[skuGroupIds]', array('string'));
         return $optionsResolver;
     }
     /**

@@ -36,7 +36,7 @@ class GetSkuGroupCollection extends \Datenkraft\Backbone\Client\SkuCatalogApi\Ge
     {
         $optionsResolver = parent::getQueryOptionsResolver();
         $optionsResolver->setDefined(array('filter[skuGroupIds]'));
-        $optionsResolver->setRequired(array('filter[skuGroupIds]'));
+        $optionsResolver->setRequired(array());
         $optionsResolver->setDefaults(array());
         $optionsResolver->setAllowedTypes('filter[skuGroupIds]', array('string'));
         return $optionsResolver;

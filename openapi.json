@@ -328,7 +328,7 @@
                         "name": "filter[skuGroupIds]",
                         "in": "query",
                         "description": "skuGroupIds filter",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }

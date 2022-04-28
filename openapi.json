@@ -26,14 +26,23 @@
                     "sku"
                 ],
                 "summary": "Query skus by skuCodes",
-                "description": "Query skus by skuCodes",
+                "description": "Query skus by skuCodes or skuGroupIds.",
                 "operationId": "getSkuCollection",
                 "parameters": [
                     {
                         "name": "filter[skuCodes]",
                         "in": "query",
                         "description": "skuCodes filter",
-                        "required": true,
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[skuGroupIds]",
+                        "in": "query",
+                        "description": "skuGroupIds filter",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -319,7 +328,7 @@
                         "name": "filter[skuGroupIds]",
                         "in": "query",
                         "description": "skuGroupIds filter",
-                        "required": true,
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -568,6 +577,51 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/docs": {
+            "get": {
+                "tags": [
+                    "docs"
+                ],
+                "summary": "Get the openapi documentation as json",
+                "description": "Get the openapi documentation as json",
+                "operationId": "getOpenApi",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/docs/openapi.{format}": {
+            "get": {
+                "tags": [
+                    "docs"
+                ],
+                "summary": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+                "description": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
+                "operationId": "getOpenApiInFormat",
+                "parameters": [
+                    {
+                        "name": "format",
+                        "in": "path",
+                        "description": "Openapi file format",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "yaml",
+                                "json"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
                     }
                 }
             }
@@ -888,51 +942,6 @@
                     }
                 }
             }
-        },
-        "/docs": {
-            "get": {
-                "tags": [
-                    "docs"
-                ],
-                "summary": "Get the openapi documentation as json",
-                "description": "Get the openapi documentation as json",
-                "operationId": "getOpenApi",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/docs/openapi.{format}": {
-            "get": {
-                "tags": [
-                    "docs"
-                ],
-                "summary": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
-                "description": "Get the openapi documentation in the specified format (yaml or json, fallback is json)",
-                "operationId": "getOpenApiInFormat",
-                "parameters": [
-                    {
-                        "name": "format",
-                        "in": "path",
-                        "description": "Openapi file format",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "enum": [
-                                "yaml",
-                                "json"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
         }
     },
     "components": {
@@ -971,30 +980,39 @@
                 },
                 "type": "object"
             },
-            "errorResponse": {
-                "properties": {
-                    "errors": {
-                        "description": "errors",
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/error"
-                        }
-                    }
-                },
-                "type": "object"
+            "skuGroupResourceCollection": {
+                "description": "Class SkuGroupResourceCollection",
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/skuGroupResource"
+                }
             },
-            "error": {
+            "skuGroupResource": {
+                "description": "SKU Group",
+                "type": "object",
+                "allOf": [
+                    {
+                        "properties": {
+                            "skuGroupId": {
+                                "description": "SKU Group Id",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    {
+                        "$ref": "#/components/schemas/newSkuGroup"
+                    }
+                ]
+            },
+            "newSkuGroup": {
+                "description": "New SKU Group",
                 "required": [
-                    "code",
-                    "message"
+                    "name"
                 ],
                 "properties": {
-                    "code": {
-                        "description": "Code",
-                        "type": "string"
-                    },
-                    "message": {
-                        "description": "Message",
+                    "name": {
+                        "description": "Name",
                         "type": "string"
                     }
                 },
@@ -1035,43 +1053,34 @@
                     "$ref": "#/components/schemas/skuResource"
                 }
             },
-            "skuGroupResourceCollection": {
-                "description": "Class SkuGroupResourceCollection",
+            "authRoleCollection": {
                 "type": "array",
                 "items": {
-                    "$ref": "#/components/schemas/skuGroupResource"
+                    "$ref": "#/components/schemas/authRoleResource"
                 }
             },
-            "skuGroupResource": {
-                "description": "SKU Group",
-                "type": "object",
-                "allOf": [
-                    {
-                        "properties": {
-                            "skuGroupId": {
-                                "description": "SKU Group Id",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
-                    },
-                    {
-                        "$ref": "#/components/schemas/newSkuGroup"
-                    }
-                ]
-            },
-            "newSkuGroup": {
-                "description": "New SKU Group",
+            "authRoleResource": {
                 "required": [
+                    "roleCode",
                     "name"
                 ],
                 "properties": {
+                    "roleCode": {
+                        "description": "Role Code",
+                        "type": "string"
+                    },
                     "name": {
                         "description": "Name",
                         "type": "string"
                     }
                 },
                 "type": "object"
+            },
+            "getAuthPermissionCollectionResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/authPermissionResource"
+                }
             },
             "authPermissionResource": {
                 "required": [
@@ -1089,12 +1098,6 @@
                     }
                 },
                 "type": "object"
-            },
-            "getAuthPermissionCollectionResponse": {
-                "type": "array",
-                "items": {
-                    "$ref": "#/components/schemas/authPermissionResource"
-                }
             },
             "authRoleIdentityResource": {
                 "required": [
@@ -1119,28 +1122,34 @@
                     "$ref": "#/components/schemas/authRoleIdentityResource"
                 }
             },
-            "authRoleResource": {
-                "required": [
-                    "roleCode",
-                    "name"
-                ],
+            "errorResponse": {
                 "properties": {
-                    "roleCode": {
-                        "description": "Role Code",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name",
-                        "type": "string"
+                    "errors": {
+                        "description": "errors",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/error"
+                        }
                     }
                 },
                 "type": "object"
             },
-            "authRoleCollection": {
-                "type": "array",
-                "items": {
-                    "$ref": "#/components/schemas/authRoleResource"
-                }
+            "error": {
+                "required": [
+                    "code",
+                    "message"
+                ],
+                "properties": {
+                    "code": {
+                        "description": "Code",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Message",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
             }
         },
         "securitySchemes": {

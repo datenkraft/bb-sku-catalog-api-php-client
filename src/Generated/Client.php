@@ -5,10 +5,11 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated;
 class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\Client
 {
     /**
-     * Query skus by skuCodes
+     * Query skus by skuCodes or skuGroupIds.
      *
      * @param array $queryParameters {
      *     @var string $filter[skuCodes] skuCodes filter
+     *     @var string $filter[skuGroupIds] skuGroupIds filter
      * }
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetSkuCollectionUnauthorizedException
@@ -118,6 +119,29 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
     }
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
+     *
+     * @return null|\Psr\Http\Message\ResponseInterface
+     */
+    public function getOpenApi(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetOpenApi(), $fetch);
+    }
+    /**
+     * Get the openapi documentation in the specified format (yaml or json, fallback is json)
+     *
+     * @param string $format Openapi file format
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
+     *
+     * @return null|\Psr\Http\Message\ResponseInterface
+     */
+    public function getOpenApiInFormat(string $format, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetOpenApiInFormat($format), $fetch);
+    }
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleCollectionUnauthorizedException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleCollectionForbiddenException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetAuthRoleCollectionInternalServerErrorException
@@ -179,29 +203,6 @@ class Client extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime
     public function postAuthRoleIdentityCollection(array $requestBody, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\PostAuthRoleIdentityCollection($requestBody), $fetch);
-    }
-    /**
-     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
-     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
-     *
-     * @return null|\Psr\Http\Message\ResponseInterface
-     */
-    public function getOpenApi(string $fetch = self::FETCH_OBJECT)
-    {
-        return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetOpenApi(), $fetch);
-    }
-    /**
-     * Get the openapi documentation in the specified format (yaml or json, fallback is json)
-     *
-     * @param string $format Openapi file format
-     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
-     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
-     *
-     * @return null|\Psr\Http\Message\ResponseInterface
-     */
-    public function getOpenApiInFormat(string $format, string $fetch = self::FETCH_OBJECT)
-    {
-        return $this->executeEndpoint(new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint\GetOpenApiInFormat($format), $fetch);
     }
     public static function create($httpClient = null, array $additionalPlugins = array())
     {

@@ -52,6 +52,6 @@ class GetAuthRoleIdentityCollection extends \Datenkraft\Backbone\Client\SkuCatal
     }
     public function getAuthenticationScopes() : array
     {
-        return array();
+        return array('oAuthAuthorization', 'bearerAuth');
     }
 }

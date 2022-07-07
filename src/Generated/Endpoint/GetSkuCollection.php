@@ -5,7 +5,7 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Endpoint;
 class GetSkuCollection extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\BaseEndpoint implements \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Client\Endpoint
 {
     /**
-     * Query skus by skuCodes or skuGroupIds. At least one of those two options must be given.
+     * Query skus by skuCodes or skuGroupIds.
      *
      * @param array $queryParameters {
      *     @var string $filter[skuCodes] skuCodes filter

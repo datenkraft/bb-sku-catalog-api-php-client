@@ -26,7 +26,7 @@
                     "sku"
                 ],
                 "summary": "Query skus by skuCodes",
-                "description": "Query skus by skuCodes or skuGroupIds. At least one of those two options must be given.",
+                "description": "Query skus by skuCodes or skuGroupIds.",
                 "operationId": "getSkuCollection",
                 "parameters": [
                     {

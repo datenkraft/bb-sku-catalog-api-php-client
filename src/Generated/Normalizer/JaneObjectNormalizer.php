@@ -14,27 +14,21 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
-    protected $normalizers = array('Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponse' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\PostSkuConflictErrorResponseNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItem' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\PostSkuConflictErrorResponseErrorsItemNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItemextra' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\PostSkuConflictErrorResponseErrorsItemextraNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuGroupResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\SkuGroupResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\NewSkuGroup' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\NewSkuGroupNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\SkuResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\AuthRoleResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\AuthRoleResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\AuthPermissionResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\AuthPermissionResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\AuthRoleIdentityResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\AuthRoleIdentityResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorResponse' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\ErrorResponseNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\Error' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\ErrorNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Runtime\\Normalizer\\ReferenceNormalizer'), $normalizersCache = array();
-    public function supportsDenormalization($data, $type, $format = null) : bool
+    protected $normalizers = array('Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponse' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\PostSkuConflictErrorResponseNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItem' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\PostSkuConflictErrorResponseErrorsItemNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItemextra' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\PostSkuConflictErrorResponseErrorsItemextraNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuGroupResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\SkuGroupResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\NewSkuGroup' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\NewSkuGroupNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\SkuResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\AuthRoleResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\AuthRoleResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\AuthPermissionResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\AuthPermissionResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\AuthRoleIdentityResource' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\AuthRoleIdentityResourceNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorResponse' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\ErrorResponseNormalizer', 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\Error' => 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Normalizer\\ErrorNormalizer', '\\Jane\\JsonSchemaRuntime\\Reference' => '\\Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Runtime\\Normalizer\\ReferenceNormalizer'), $normalizersCache = array();
+    public function supportsDenormalization($data, $type, $format = null)
     {
         return array_key_exists($type, $this->normalizers);
     }
-    public function supportsNormalization($data, $format = null) : bool
+    public function supportsNormalization($data, $format = null)
     {
         return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
     public function normalize($object, $format = null, array $context = array())
     {
         $normalizerClass = $this->normalizers[get_class($object)];
         $normalizer = $this->getNormalizer($normalizerClass);
         return $normalizer->normalize($object, $format, $context);
     }
-    /**
-     * @return mixed
-     */
     public function denormalize($data, $class, $format = null, array $context = array())
     {
         $denormalizerClass = $this->normalizers[$class];

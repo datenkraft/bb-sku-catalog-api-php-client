@@ -4,6 +4,7 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer;
 
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\CheckArray;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\ValidatorTrait;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
@@ -16,11 +17,12 @@ class SkuResourceNormalizer implements DenormalizerInterface, NormalizerInterfac
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
-    public function supportsDenormalization($data, $type, $format = null) : bool
+    use ValidatorTrait;
+    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
     {
         return $type === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource';
     }
-    public function supportsNormalization($data, $format = null) : bool
+    public function supportsNormalization($data, $format = null, array $context = array()) : bool
     {
         return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource';
     }
@@ -41,18 +43,27 @@ class SkuResourceNormalizer implements DenormalizerInterface, NormalizerInterfac
         }
         if (\array_key_exists('skuCode', $data)) {
             $object->setSkuCode($data['skuCode']);
+            unset($data['skuCode']);
         }
         if (\array_key_exists('skuGroupId', $data)) {
             $object->setSkuGroupId($data['skuGroupId']);
+            unset($data['skuGroupId']);
         }
         if (\array_key_exists('name', $data)) {
             $object->setName($data['name']);
+            unset($data['name']);
         }
         if (\array_key_exists('unit', $data) && $data['unit'] !== null) {
             $object->setUnit($data['unit']);
+            unset($data['unit']);
         }
         elseif (\array_key_exists('unit', $data) && $data['unit'] === null) {
             $object->setUnit(null);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
+            }
         }
         return $object;
     }
@@ -65,8 +76,13 @@ class SkuResourceNormalizer implements DenormalizerInterface, NormalizerInterfac
         $data['skuCode'] = $object->getSkuCode();
         $data['skuGroupId'] = $object->getSkuGroupId();
         $data['name'] = $object->getName();
-        if (null !== $object->getUnit()) {
+        if ($object->isInitialized('unit') && null !== $object->getUnit()) {
             $data['unit'] = $object->getUnit();
+        }
+        foreach ($object as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $data[$key] = $value;
+            }
         }
         return $data;
     }

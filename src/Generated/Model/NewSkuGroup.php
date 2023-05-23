@@ -2,8 +2,16 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class NewSkuGroup
+class NewSkuGroup extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = array();
+    public function isInitialized($property) : bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
     /**
      * Name
      *
@@ -28,6 +36,7 @@ class NewSkuGroup
      */
     public function setName(string $name) : self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
         return $this;
     }

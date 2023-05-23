@@ -2,8 +2,16 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class SkuResource
+class SkuResource extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = array();
+    public function isInitialized($property) : bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
     /**
      * SKU Code
      *
@@ -46,6 +54,7 @@ class SkuResource
      */
     public function setSkuCode(string $skuCode) : self
     {
+        $this->initialized['skuCode'] = true;
         $this->skuCode = $skuCode;
         return $this;
     }
@@ -67,6 +76,7 @@ class SkuResource
      */
     public function setSkuGroupId(string $skuGroupId) : self
     {
+        $this->initialized['skuGroupId'] = true;
         $this->skuGroupId = $skuGroupId;
         return $this;
     }
@@ -88,6 +98,7 @@ class SkuResource
      */
     public function setName(string $name) : self
     {
+        $this->initialized['name'] = true;
         $this->name = $name;
         return $this;
     }
@@ -109,6 +120,7 @@ class SkuResource
      */
     public function setUnit(?string $unit) : self
     {
+        $this->initialized['unit'] = true;
         $this->unit = $unit;
         return $this;
     }

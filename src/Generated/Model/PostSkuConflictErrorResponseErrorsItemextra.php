@@ -2,8 +2,16 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class PostSkuConflictErrorResponseErrorsItemextra
+class PostSkuConflictErrorResponseErrorsItemextra extends \ArrayObject
 {
+    /**
+     * @var array
+     */
+    protected $initialized = array();
+    public function isInitialized($property) : bool
+    {
+        return array_key_exists($property, $this->initialized);
+    }
     /**
      * SKUs
      *
@@ -28,6 +36,7 @@ class PostSkuConflictErrorResponseErrorsItemextra
      */
     public function setSkus(array $skus) : self
     {
+        $this->initialized['skus'] = true;
         $this->skus = $skus;
         return $this;
     }

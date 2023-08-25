@@ -2,14 +2,8 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class SkuResource
+class PostSkuResource
 {
-    /**
-     * SKU Code
-     *
-     * @var string
-     */
-    protected $skuCode;
     /**
      * SKU Group Id
      *
@@ -31,24 +25,9 @@ class SkuResource
     /**
      * SKU Code
      *
-     * @return string
+     * @var string
      */
-    public function getSkuCode() : string
-    {
-        return $this->skuCode;
-    }
-    /**
-     * SKU Code
-     *
-     * @param string $skuCode
-     *
-     * @return self
-     */
-    public function setSkuCode(string $skuCode) : self
-    {
-        $this->skuCode = $skuCode;
-        return $this;
-    }
+    protected $skuCode;
     /**
      * SKU Group Id
      *
@@ -110,6 +89,27 @@ class SkuResource
     public function setUnit(?string $unit) : self
     {
         $this->unit = $unit;
+        return $this;
+    }
+    /**
+     * SKU Code
+     *
+     * @return string
+     */
+    public function getSkuCode() : string
+    {
+        return $this->skuCode;
+    }
+    /**
+     * SKU Code
+     *
+     * @param string $skuCode
+     *
+     * @return self
+     */
+    public function setSkuCode(string $skuCode) : self
+    {
+        $this->skuCode = $skuCode;
         return $this;
     }
 }

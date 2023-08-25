@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Backbone SKU Catalog API",
-        "description": "\n- alpha: Currently developed API version. Subject to major changes.\n- beta: A semi-stable early access version. New features can be added. Breaking changes are possible.\n- stable: The API is recommended for use in production.\n\n[Changelog](https:\/\/sku-catalog-api.conqore.niceshops.com\/v1\/docs\/changelog.html)\n\nAll data is transferred in UTF-8 encoding.\\\nThe API uses stateless HTTP. No cookies have to be kept.\\\nAuthentication via OAuth2 client credentials flow.\n\n[Backbone SKU Catalog API PHP client @Packagist](https:\/\/packagist.org\/packages\/datenkraft\/bb-sku-catalog-api-php-client)",
+        "description": "\n- alpha: Currently developed API version. Subject to major changes.\n- beta: A semi-stable early access version. New features can be added. Breaking changes are possible.\n- stable: The API is recommended for use in production.\n\n[Changelog](https:\/\/sku-catalog-api.conqore.niceshops.com\/v1\/docs\/changelog.html)\n\nAll data is transferred in UTF-8 encoding.\\\nThe API uses stateless HTTP. No cookies have to be kept.\\\nAuthentication via OAuth2 client credentials flow.\n\n[Privacy Policy](https:\/\/www.niceshops.com\/en\/dienstleistungen\/data-privacy-policy)\n\n[Backbone SKU Catalog API PHP client @Packagist](https:\/\/packagist.org\/packages\/datenkraft\/bb-sku-catalog-api-php-client)",
         "version": "v1.beta"
     },
     "servers": [
@@ -1627,8 +1627,8 @@
                 "tags": [
                     "sku"
                 ],
-                "summary": "Query skus by skuCodes",
-                "description": "Query skus by skuCodes or skuGroupIds.",
+                "summary": "Query skus",
+                "description": "Query skus",
                 "operationId": "getSkuCollection",
                 "parameters": [
                     {
@@ -1648,6 +1648,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "filter[active]",
+                        "in": "query",
+                        "description": "active filter",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {
@@ -1657,6 +1666,104 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/skuResourceCollection"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "sku"
+                ],
+                "summary": "Add a SKU",
+                "description": "Add a SKU",
+                "operationId": "postSku",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/postSkuResource"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/skuResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
                                 }
                             }
                         }
@@ -1691,86 +1798,8 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "oAuthAuthorization": []
-                    },
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "sku"
-                ],
-                "summary": "Add a SKU",
-                "description": "Add a SKU",
-                "operationId": "postSku",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/skuResource"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/skuResource"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
+                    "409": {
+                        "description": "Conflict",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1789,28 +1818,8 @@
                             }
                         }
                     },
-                    "409": {
-                        "description": "Conflict",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/postSkuConflictErrorResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/errorResponse"
-                                }
-                            }
-                        }
-                    },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1820,7 +1829,7 @@
                         }
                     },
                     "default": {
-                        "description": "Unexpected error",
+                        "description": "Unexpected Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1870,6 +1879,16 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
                     "401": {
                         "description": "Unauthorized",
                         "content": {
@@ -1900,6 +1919,75 @@
                             }
                         }
                     },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oAuthAuthorization": []
+                    },
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "sku"
+                ],
+                "summary": "Update one or more fields of a SKU",
+                "description": "Update one or more fields of a SKU",
+                "operationId": "patchSku",
+                "parameters": [
+                    {
+                        "name": "skuCode",
+                        "in": "path",
+                        "description": "SKU Code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/patchSkuResource"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/skuResource"
+                                }
+                            }
+                        }
+                    },
                     "400": {
                         "description": "Bad Request",
                         "content": {
@@ -1910,8 +1998,48 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/errorResponse"
+                                }
+                            }
+                        }
+                    },
                     "500": {
-                        "description": "Server error",
+                        "description": "Server Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1921,7 +2049,7 @@
                         }
                     },
                     "default": {
-                        "description": "Unexpected error",
+                        "description": "Unexpected Error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2097,6 +2225,24 @@
                 },
                 "type": "object"
             },
+            "baseSkuResource": {
+                "properties": {
+                    "skuGroupId": {
+                        "description": "SKU Group Id",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name",
+                        "type": "string"
+                    },
+                    "unit": {
+                        "description": "Unit",
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
             "collection": {
                 "title": "collection",
                 "properties": {
@@ -2241,39 +2387,42 @@
                 },
                 "type": "object"
             },
-            "postSkuConflictErrorResponse": {
-                "properties": {
-                    "errors": {
-                        "description": "errors",
-                        "type": "array",
-                        "items": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/components/schemas/error"
-                                },
-                                {
-                                    "properties": {
-                                        "extra": {
-                                            "description": "Extra",
-                                            "properties": {
-                                                "skus": {
-                                                    "description": "SKUs",
-                                                    "type": "array",
-                                                    "items": {
-                                                        "$ref": "#/components/schemas/skuResource"
-                                                    }
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            ]
-                        }
+            "patchSkuResource": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/baseSkuResource"
+                    },
+                    {
+                        "properties": {
+                            "active": {
+                                "description": "Active",
+                                "type": "boolean"
+                            }
+                        },
+                        "type": "object"
                     }
-                },
-                "type": "object"
+                ]
+            },
+            "postSkuResource": {
+                "required": [
+                    "skuCode",
+                    "skuGroupId",
+                    "name"
+                ],
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/baseSkuResource"
+                    },
+                    {
+                        "properties": {
+                            "skuCode": {
+                                "description": "SKU Code",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
             },
             "skuGroupResource": {
                 "description": "SKU Group",
@@ -2301,31 +2450,14 @@
                 }
             },
             "skuResource": {
-                "required": [
-                    "skuCode",
-                    "skuGroupId",
-                    "name"
-                ],
-                "properties": {
-                    "skuCode": {
-                        "description": "SKU Code",
-                        "type": "string"
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/postSkuResource"
                     },
-                    "skuGroupId": {
-                        "description": "SKU Group Id",
-                        "type": "string"
-                    },
-                    "name": {
-                        "description": "Name",
-                        "type": "string"
-                    },
-                    "unit": {
-                        "description": "Unit",
-                        "type": "string",
-                        "nullable": true
+                    {
+                        "$ref": "#/components/schemas/patchSkuResource"
                     }
-                },
-                "type": "object"
+                ]
             },
             "skuResourceCollection": {
                 "description": "Class SkuResourceCollection",

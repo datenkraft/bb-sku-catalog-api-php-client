@@ -5,22 +5,22 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 class PostSkuConflictException extends ConflictException
 {
     /**
-     * @var \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuConflictErrorResponse
+     * @var \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse
      */
-    private $postSkuConflictErrorResponse;
+    private $errorResponse;
     /**
      * @var \Psr\Http\Message\ResponseInterface
      */
     private $response;
-    public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuConflictErrorResponse $postSkuConflictErrorResponse, \Psr\Http\Message\ResponseInterface $response)
+    public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
         parent::__construct('Conflict');
-        $this->postSkuConflictErrorResponse = $postSkuConflictErrorResponse;
+        $this->errorResponse = $errorResponse;
         $this->response = $response;
     }
-    public function getPostSkuConflictErrorResponse() : \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuConflictErrorResponse
+    public function getErrorResponse() : \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse
     {
-        return $this->postSkuConflictErrorResponse;
+        return $this->errorResponse;
     }
     public function getResponse() : \Psr\Http\Message\ResponseInterface
     {

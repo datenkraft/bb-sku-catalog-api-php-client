@@ -14,7 +14,7 @@ class PostSkuInternalServerErrorException extends InternalServerErrorException
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Server error');
+        parent::__construct('Server Error');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }

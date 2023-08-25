@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
-class GetSkuCollectionNotFoundException extends NotFoundException
+class PatchSkuNotFoundException extends NotFoundException
 {
     /**
      * @var \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse
@@ -14,7 +14,7 @@ class GetSkuCollectionNotFoundException extends NotFoundException
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Not Found');
+        parent::__construct('Unprocessable Entity');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }

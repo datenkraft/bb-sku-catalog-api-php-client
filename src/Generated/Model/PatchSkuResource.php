@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class SkuResource extends \ArrayObject
+class PatchSkuResource extends \ArrayObject
 {
     /**
      * @var array
@@ -12,12 +12,6 @@ class SkuResource extends \ArrayObject
     {
         return array_key_exists($property, $this->initialized);
     }
-    /**
-     * SKU Code
-     *
-     * @var string
-     */
-    protected $skuCode;
     /**
      * SKU Group Id
      *
@@ -37,27 +31,11 @@ class SkuResource extends \ArrayObject
      */
     protected $unit;
     /**
-     * SKU Code
+     * Active
      *
-     * @return string
+     * @var bool
      */
-    public function getSkuCode() : string
-    {
-        return $this->skuCode;
-    }
-    /**
-     * SKU Code
-     *
-     * @param string $skuCode
-     *
-     * @return self
-     */
-    public function setSkuCode(string $skuCode) : self
-    {
-        $this->initialized['skuCode'] = true;
-        $this->skuCode = $skuCode;
-        return $this;
-    }
+    protected $active;
     /**
      * SKU Group Id
      *
@@ -122,6 +100,28 @@ class SkuResource extends \ArrayObject
     {
         $this->initialized['unit'] = true;
         $this->unit = $unit;
+        return $this;
+    }
+    /**
+     * Active
+     *
+     * @return bool
+     */
+    public function getActive() : bool
+    {
+        return $this->active;
+    }
+    /**
+     * Active
+     *
+     * @param bool $active
+     *
+     * @return self
+     */
+    public function setActive(bool $active) : self
+    {
+        $this->initialized['active'] = true;
+        $this->active = $active;
         return $this;
     }
 }

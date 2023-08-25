@@ -2393,15 +2393,18 @@
                         "$ref": "#/components/schemas/baseSkuResource"
                     },
                     {
-                        "properties": {
-                            "active": {
-                                "description": "Active",
-                                "type": "boolean"
-                            }
-                        },
-                        "type": "object"
+                        "$ref": "#/components/schemas/patchSkuUsageAdditionalData"
                     }
                 ]
+            },
+            "patchSkuUsageAdditionalData": {
+                "properties": {
+                    "active": {
+                        "description": "Active",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
             },
             "postSkuResource": {
                 "required": [
@@ -2414,15 +2417,18 @@
                         "$ref": "#/components/schemas/baseSkuResource"
                     },
                     {
-                        "properties": {
-                            "skuCode": {
-                                "description": "SKU Code",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
+                        "$ref": "#/components/schemas/postSkuUsageAdditionalData"
                     }
                 ]
+            },
+            "postSkuUsageAdditionalData": {
+                "properties": {
+                    "skuCode": {
+                        "description": "SKU Code",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
             },
             "skuGroupResource": {
                 "description": "SKU Group",
@@ -2452,10 +2458,13 @@
             "skuResource": {
                 "allOf": [
                     {
-                        "$ref": "#/components/schemas/postSkuResource"
+                        "$ref": "#/components/schemas/baseSkuResource"
                     },
                     {
-                        "$ref": "#/components/schemas/patchSkuResource"
+                        "$ref": "#/components/schemas/postSkuUsageAdditionalData"
+                    },
+                    {
+                        "$ref": "#/components/schemas/patchSkuUsageAdditionalData"
                     }
                 ]
             },

@@ -11,18 +11,18 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class BaseSkuResourceNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
     use CheckArray;
     public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return $type === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItemextra';
+        return $type === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\BaseSkuResource';
     }
     public function supportsNormalization($data, $format = null) : bool
     {
-        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItemextra';
+        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\BaseSkuResource';
     }
     /**
      * @return mixed
@@ -35,16 +35,21 @@ class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements Denormali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuConflictErrorResponseErrorsItemextra();
+        $object = new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\BaseSkuResource();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('skus', $data)) {
-            $values = array();
-            foreach ($data['skus'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource', 'json', $context);
-            }
-            $object->setSkus($values);
+        if (\array_key_exists('skuGroupId', $data)) {
+            $object->setSkuGroupId($data['skuGroupId']);
+        }
+        if (\array_key_exists('name', $data)) {
+            $object->setName($data['name']);
+        }
+        if (\array_key_exists('unit', $data) && $data['unit'] !== null) {
+            $object->setUnit($data['unit']);
+        }
+        elseif (\array_key_exists('unit', $data) && $data['unit'] === null) {
+            $object->setUnit(null);
         }
         return $object;
     }
@@ -54,12 +59,14 @@ class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements Denormali
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        if (null !== $object->getSkus()) {
-            $values = array();
-            foreach ($object->getSkus() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['skus'] = $values;
+        if (null !== $object->getSkuGroupId()) {
+            $data['skuGroupId'] = $object->getSkuGroupId();
+        }
+        if (null !== $object->getName()) {
+            $data['name'] = $object->getName();
+        }
+        if (null !== $object->getUnit()) {
+            $data['unit'] = $object->getUnit();
         }
         return $data;
     }

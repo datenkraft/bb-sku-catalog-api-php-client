@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
-class GetSkuCollectionNotFoundException extends NotFoundException
+class PostSkuNotFoundException extends NotFoundException
 {
     /**
      * @var \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse

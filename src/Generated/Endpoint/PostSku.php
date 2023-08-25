@@ -45,12 +45,12 @@ class PostSku extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtim
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PostSkuInternalServerErrorException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
      *
-     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse
+     * @return null|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource|\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse
      */
     protected function transformResponseBody(string $body, int $status, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         if (is_null($contentType) === false && (201 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return json_decode($body);
+            return $serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource', 'json');
         }
         if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PostSkuBadRequestException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorResponse', 'json'));

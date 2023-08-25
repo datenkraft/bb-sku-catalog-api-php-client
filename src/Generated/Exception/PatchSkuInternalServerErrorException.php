@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
-class GetSkuCollectionInternalServerErrorException extends InternalServerErrorException
+class PatchSkuInternalServerErrorException extends InternalServerErrorException
 {
     /**
      * @var \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse

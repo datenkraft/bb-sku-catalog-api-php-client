@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class BaseSkuResourceNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
 {
     use DenormalizerAwareTrait;
     use NormalizerAwareTrait;
@@ -20,11 +20,11 @@ class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements Denormali
     use ValidatorTrait;
     public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
     {
-        return $type === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItemextra';
+        return $type === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\BaseSkuResource';
     }
     public function supportsNormalization($data, $format = null, array $context = array()) : bool
     {
-        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuConflictErrorResponseErrorsItemextra';
+        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\BaseSkuResource';
     }
     /**
      * @return mixed
@@ -37,21 +37,28 @@ class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements Denormali
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuConflictErrorResponseErrorsItemextra();
+        $object = new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\BaseSkuResource();
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
-        if (\array_key_exists('skus', $data)) {
-            $values = array();
-            foreach ($data['skus'] as $value) {
-                $values[] = $this->denormalizer->denormalize($value, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\SkuResource', 'json', $context);
-            }
-            $object->setSkus($values);
-            unset($data['skus']);
+        if (\array_key_exists('skuGroupId', $data)) {
+            $object->setSkuGroupId($data['skuGroupId']);
+            unset($data['skuGroupId']);
         }
-        foreach ($data as $key => $value_1) {
+        if (\array_key_exists('name', $data)) {
+            $object->setName($data['name']);
+            unset($data['name']);
+        }
+        if (\array_key_exists('unit', $data) && $data['unit'] !== null) {
+            $object->setUnit($data['unit']);
+            unset($data['unit']);
+        }
+        elseif (\array_key_exists('unit', $data) && $data['unit'] === null) {
+            $object->setUnit(null);
+        }
+        foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_1;
+                $object[$key] = $value;
             }
         }
         return $object;
@@ -62,16 +69,18 @@ class PostSkuConflictErrorResponseErrorsItemextraNormalizer implements Denormali
     public function normalize($object, $format = null, array $context = array())
     {
         $data = array();
-        if ($object->isInitialized('skus') && null !== $object->getSkus()) {
-            $values = array();
-            foreach ($object->getSkus() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['skus'] = $values;
+        if ($object->isInitialized('skuGroupId') && null !== $object->getSkuGroupId()) {
+            $data['skuGroupId'] = $object->getSkuGroupId();
         }
-        foreach ($object as $key => $value_1) {
+        if ($object->isInitialized('name') && null !== $object->getName()) {
+            $data['name'] = $object->getName();
+        }
+        if ($object->isInitialized('unit') && null !== $object->getUnit()) {
+            $data['unit'] = $object->getUnit();
+        }
+        foreach ($object as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
-                $data[$key] = $value_1;
+                $data[$key] = $value;
             }
         }
         return $data;

@@ -2,7 +2,7 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception;
 
-class GetSkuCollectionInternalServerErrorException extends InternalServerErrorException
+class PatchSkuForbiddenException extends ForbiddenException
 {
     /**
      * @var \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse
@@ -14,7 +14,7 @@ class GetSkuCollectionInternalServerErrorException extends InternalServerErrorEx
     private $response;
     public function __construct(\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Server Error');
+        parent::__construct('Forbidden');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }

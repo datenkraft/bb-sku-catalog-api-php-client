@@ -27,9 +27,14 @@ class GetOpenApiInFormat extends \Datenkraft\Backbone\Client\SkuCatalogApi\Gener
     {
         return array(array(), null);
     }
+    public function getExtraHeaders() : array
+    {
+        return array('Accept' => array('application/json'));
+    }
     /**
      * {@inheritdoc}
      *
+     * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetOpenApiInFormatBadRequestException
      * @throws \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException
      *
      * @return null
@@ -40,6 +45,9 @@ class GetOpenApiInFormat extends \Datenkraft\Backbone\Client\SkuCatalogApi\Gener
         $body = (string) $response->getBody();
         if (200 === $status) {
             return null;
+        }
+        if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+            throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\GetOpenApiInFormatBadRequestException($serializer->deserialize($body, 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\ErrorResponse', 'json'), $response);
         }
         throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException($status, $body);
     }

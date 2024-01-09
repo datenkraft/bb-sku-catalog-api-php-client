@@ -19,7 +19,7 @@ class SkuGroupResourceCollection extends \ArrayObject
      */
     protected $pagination;
     /**
-     * Class SkuGroupResourceCollection
+     * SkuGroupResourceCollection
      *
      * @var mixed[][]
      */
@@ -47,7 +47,7 @@ class SkuGroupResourceCollection extends \ArrayObject
         return $this;
     }
     /**
-     * Class SkuGroupResourceCollection
+     * SkuGroupResourceCollection
      *
      * @return mixed[][]
      */
@@ -56,7 +56,7 @@ class SkuGroupResourceCollection extends \ArrayObject
         return $this->data;
     }
     /**
-     * Class SkuGroupResourceCollection
+     * SkuGroupResourceCollection
      *
      * @param mixed[][] $data
      *

@@ -19,7 +19,7 @@ class SkuResourceCollection extends \ArrayObject
      */
     protected $pagination;
     /**
-     * Class SkuResourceCollection
+     * SkuResourceCollection
      *
      * @var SkuResource[]
      */
@@ -47,7 +47,7 @@ class SkuResourceCollection extends \ArrayObject
         return $this;
     }
     /**
-     * Class SkuResourceCollection
+     * SkuResourceCollection
      *
      * @return SkuResource[]
      */
@@ -56,7 +56,7 @@ class SkuResourceCollection extends \ArrayObject
         return $this->data;
     }
     /**
-     * Class SkuResourceCollection
+     * SkuResourceCollection
      *
      * @param SkuResource[] $data
      *

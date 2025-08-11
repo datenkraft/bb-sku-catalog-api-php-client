@@ -7,8 +7,8 @@ class PatchSkuUsageAdditionalData extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -23,7 +23,7 @@ class PatchSkuUsageAdditionalData extends \ArrayObject
      *
      * @return bool
      */
-    public function getActive() : bool
+    public function getActive(): bool
     {
         return $this->active;
     }
@@ -34,7 +34,7 @@ class PatchSkuUsageAdditionalData extends \ArrayObject
      *
      * @return self
      */
-    public function setActive(bool $active) : self
+    public function setActive(bool $active): self
     {
         $this->initialized['active'] = true;
         $this->active = $active;

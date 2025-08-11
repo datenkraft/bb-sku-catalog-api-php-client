@@ -7,8 +7,8 @@ class SkuGroupResource extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -29,7 +29,7 @@ class SkuGroupResource extends \ArrayObject
      *
      * @return string
      */
-    public function getSkuGroupId() : string
+    public function getSkuGroupId(): string
     {
         return $this->skuGroupId;
     }
@@ -40,7 +40,7 @@ class SkuGroupResource extends \ArrayObject
      *
      * @return self
      */
-    public function setSkuGroupId(string $skuGroupId) : self
+    public function setSkuGroupId(string $skuGroupId): self
     {
         $this->initialized['skuGroupId'] = true;
         $this->skuGroupId = $skuGroupId;
@@ -51,7 +51,7 @@ class SkuGroupResource extends \ArrayObject
      *
      * @return string
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -62,7 +62,7 @@ class SkuGroupResource extends \ArrayObject
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;

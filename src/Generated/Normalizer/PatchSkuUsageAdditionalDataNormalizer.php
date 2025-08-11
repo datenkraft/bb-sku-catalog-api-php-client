@@ -5,7 +5,6 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\CheckArray;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -18,18 +17,15 @@ class PatchSkuUsageAdditionalDataNormalizer implements DenormalizerInterface, No
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PatchSkuUsageAdditionalData';
+        return $type === \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuUsageAdditionalData::class;
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PatchSkuUsageAdditionalData';
+        return is_object($data) && get_class($data) === \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuUsageAdditionalData::class;
     }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -38,6 +34,9 @@ class PatchSkuUsageAdditionalDataNormalizer implements DenormalizerInterface, No
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
         $object = new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuUsageAdditionalData();
+        if (\array_key_exists('active', $data) && \is_int($data['active'])) {
+            $data['active'] = (bool) $data['active'];
+        }
         if (null === $data || false === \is_array($data)) {
             return $object;
         }
@@ -52,20 +51,21 @@ class PatchSkuUsageAdditionalDataNormalizer implements DenormalizerInterface, No
         }
         return $object;
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        if ($object->isInitialized('active') && null !== $object->getActive()) {
-            $data['active'] = $object->getActive();
+        $dataArray = [];
+        if ($data->isInitialized('active') && null !== $data->getActive()) {
+            $dataArray['active'] = $data->getActive();
         }
-        foreach ($object as $key => $value) {
+        foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
-                $data[$key] = $value;
+                $dataArray[$key] = $value;
             }
         }
-        return $data;
+        return $dataArray;
+    }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuUsageAdditionalData::class => false];
     }
 }

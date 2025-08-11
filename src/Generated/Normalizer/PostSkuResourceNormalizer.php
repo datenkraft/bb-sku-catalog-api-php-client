@@ -5,7 +5,6 @@ namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\CheckArray;
 use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -18,18 +17,15 @@ class PostSkuResourceNormalizer implements DenormalizerInterface, NormalizerInte
     use NormalizerAwareTrait;
     use CheckArray;
     use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()) : bool
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        return $type === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuResource';
+        return $type === \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuResource::class;
     }
-    public function supportsNormalization($data, $format = null, array $context = array()) : bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        return is_object($data) && get_class($data) === 'Datenkraft\\Backbone\\Client\\SkuCatalogApi\\Generated\\Model\\PostSkuResource';
+        return is_object($data) && get_class($data) === \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuResource::class;
     }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
         if (isset($data['$ref'])) {
             return new Reference($data['$ref'], $context['document-origin']);
@@ -67,29 +63,30 @@ class PostSkuResourceNormalizer implements DenormalizerInterface, NormalizerInte
         }
         return $object;
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-        $data = array();
-        if ($object->isInitialized('skuGroupId') && null !== $object->getSkuGroupId()) {
-            $data['skuGroupId'] = $object->getSkuGroupId();
+        $dataArray = [];
+        if ($data->isInitialized('skuGroupId') && null !== $data->getSkuGroupId()) {
+            $dataArray['skuGroupId'] = $data->getSkuGroupId();
         }
-        if ($object->isInitialized('name') && null !== $object->getName()) {
-            $data['name'] = $object->getName();
+        if ($data->isInitialized('name') && null !== $data->getName()) {
+            $dataArray['name'] = $data->getName();
         }
-        if ($object->isInitialized('unit') && null !== $object->getUnit()) {
-            $data['unit'] = $object->getUnit();
+        if ($data->isInitialized('unit') && null !== $data->getUnit()) {
+            $dataArray['unit'] = $data->getUnit();
         }
-        if ($object->isInitialized('skuCode') && null !== $object->getSkuCode()) {
-            $data['skuCode'] = $object->getSkuCode();
+        if ($data->isInitialized('skuCode') && null !== $data->getSkuCode()) {
+            $dataArray['skuCode'] = $data->getSkuCode();
         }
-        foreach ($object as $key => $value) {
+        foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
-                $data[$key] = $value;
+                $dataArray[$key] = $value;
             }
         }
-        return $data;
+        return $dataArray;
+    }
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuResource::class => false];
     }
 }

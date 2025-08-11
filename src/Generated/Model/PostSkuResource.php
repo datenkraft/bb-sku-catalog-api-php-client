@@ -7,8 +7,8 @@ class PostSkuResource extends \ArrayObject
     /**
      * @var array
      */
-    protected $initialized = array();
-    public function isInitialized($property) : bool
+    protected $initialized = [];
+    public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
@@ -41,7 +41,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return string
      */
-    public function getSkuGroupId() : string
+    public function getSkuGroupId(): string
     {
         return $this->skuGroupId;
     }
@@ -52,7 +52,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return self
      */
-    public function setSkuGroupId(string $skuGroupId) : self
+    public function setSkuGroupId(string $skuGroupId): self
     {
         $this->initialized['skuGroupId'] = true;
         $this->skuGroupId = $skuGroupId;
@@ -63,7 +63,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return string
      */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -74,7 +74,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return self
      */
-    public function setName(string $name) : self
+    public function setName(string $name): self
     {
         $this->initialized['name'] = true;
         $this->name = $name;
@@ -85,7 +85,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return string|null
      */
-    public function getUnit() : ?string
+    public function getUnit(): ?string
     {
         return $this->unit;
     }
@@ -96,7 +96,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return self
      */
-    public function setUnit(?string $unit) : self
+    public function setUnit(?string $unit): self
     {
         $this->initialized['unit'] = true;
         $this->unit = $unit;
@@ -107,7 +107,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return string
      */
-    public function getSkuCode() : string
+    public function getSkuCode(): string
     {
         return $this->skuCode;
     }
@@ -118,7 +118,7 @@ class PostSkuResource extends \ArrayObject
      *
      * @return self
      */
-    public function setSkuCode(string $skuCode) : self
+    public function setSkuCode(string $skuCode): self
     {
         $this->initialized['skuCode'] = true;
         $this->skuCode = $skuCode;

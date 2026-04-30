@@ -27,18 +27,18 @@ class PatchSkuResourceNormalizer implements DenormalizerInterface, NormalizerInt
     }
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuResource();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuResource();
         if (\array_key_exists('active', $data) && \is_int($data['active'])) {
             $data['active'] = (bool) $data['active'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('skuGroupId', $data)) {
             $object->setSkuGroupId($data['skuGroupId']);
@@ -75,7 +75,7 @@ class PatchSkuResourceNormalizer implements DenormalizerInterface, NormalizerInt
         if ($data->isInitialized('name') && null !== $data->getName()) {
             $dataArray['name'] = $data->getName();
         }
-        if ($data->isInitialized('unit') && null !== $data->getUnit()) {
+        if ($data->isInitialized('unit')) {
             $dataArray['unit'] = $data->getUnit();
         }
         if ($data->isInitialized('active') && null !== $data->getActive()) {

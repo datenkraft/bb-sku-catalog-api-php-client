@@ -7,9 +7,8 @@ class PatchSku extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runti
     protected $skuCode;
     /**
      * Update one or more fields of a SKU
-     *
      * @param string $skuCode SKU Code
-     * @param \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuResource $requestBody 
+     * @param \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuResource $requestBody
      */
     public function __construct(string $skuCode, \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuResource $requestBody)
     {
@@ -53,28 +52,28 @@ class PatchSku extends \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runti
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return $serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource', 'json');
         }
-        if (is_null($contentType) === false && (400 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (400 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PatchSkuBadRequestException($serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse', 'json'), $response);
         }
-        if (is_null($contentType) === false && (401 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (401 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PatchSkuUnauthorizedException($serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse', 'json'), $response);
         }
-        if (is_null($contentType) === false && (403 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (403 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PatchSkuForbiddenException($serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse', 'json'), $response);
         }
-        if (is_null($contentType) === false && (404 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (404 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PatchSkuNotFoundException($serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse', 'json'), $response);
         }
-        if (is_null($contentType) === false && (422 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (422 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PatchSkuUnprocessableEntityException($serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse', 'json'), $response);
         }
-        if (is_null($contentType) === false && (500 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (500 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\PatchSkuInternalServerErrorException($serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse', 'json'), $response);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return $serializer->deserialize($body, 'Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse', 'json');
         }
         throw new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Exception\UnexpectedStatusCodeException($status, $body);

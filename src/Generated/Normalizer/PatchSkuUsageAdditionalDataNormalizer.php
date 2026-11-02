@@ -41,7 +41,7 @@ class PatchSkuUsageAdditionalDataNormalizer implements DenormalizerInterface, No
             $data['active'] = (bool) $data['active'];
         }
         if (\array_key_exists('active', $data)) {
-            $object->setActive($data['active']);
+            $object->active = $data['active'];
             unset($data['active']);
         }
         foreach ($data as $key => $value) {
@@ -54,10 +54,10 @@ class PatchSkuUsageAdditionalDataNormalizer implements DenormalizerInterface, No
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('active') && null !== $data->getActive()) {
-            $dataArray['active'] = $data->getActive();
+        if (array_key_exists('active', get_object_vars($data)) && null !== ($data->active ?? null)) {
+            $dataArray['active'] = $data->active;
         }
-        foreach ($data as $key => $value) {
+        foreach ($data->additionalPropertyEntries() as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;
             }

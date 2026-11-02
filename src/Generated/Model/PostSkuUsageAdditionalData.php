@@ -2,42 +2,19 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class PostSkuUsageAdditionalData extends \ArrayObject
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\AdditionalAndPatternProperties;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\AdditionalPropertiesInterface;
+class PostSkuUsageAdditionalData implements AdditionalPropertiesInterface
 {
-    /**
-     * @var array
-     */
-    protected $initialized = [];
-    public function isInitialized($property): bool
-    {
-        return array_key_exists($property, $this->initialized);
-    }
+    use AdditionalAndPatternProperties;
     /**
      * SKU Code
      *
      * @var string
      */
-    protected $skuCode;
-    /**
-     * SKU Code
-     *
-     * @return string
-     */
-    public function getSkuCode(): string
+    public string $skuCode;
+    public function definedProperties(): array
     {
-        return $this->skuCode;
-    }
-    /**
-     * SKU Code
-     *
-     * @param string $skuCode
-     *
-     * @return self
-     */
-    public function setSkuCode(string $skuCode): self
-    {
-        $this->initialized['skuCode'] = true;
-        $this->skuCode = $skuCode;
-        return $this;
+        return ['skuCode' => 'skuCode'];
     }
 }

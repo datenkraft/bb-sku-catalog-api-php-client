@@ -2,42 +2,19 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class PatchSkuUsageAdditionalData extends \ArrayObject
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\AdditionalAndPatternProperties;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\AdditionalPropertiesInterface;
+class PatchSkuUsageAdditionalData implements AdditionalPropertiesInterface
 {
-    /**
-     * @var array
-     */
-    protected $initialized = [];
-    public function isInitialized($property): bool
-    {
-        return array_key_exists($property, $this->initialized);
-    }
+    use AdditionalAndPatternProperties;
     /**
      * Active
      *
      * @var bool
      */
-    protected $active;
-    /**
-     * Active
-     *
-     * @return bool
-     */
-    public function getActive(): bool
+    public bool $active;
+    public function definedProperties(): array
     {
-        return $this->active;
-    }
-    /**
-     * Active
-     *
-     * @param bool $active
-     *
-     * @return self
-     */
-    public function setActive(bool $active): self
-    {
-        $this->initialized['active'] = true;
-        $this->active = $active;
-        return $this;
+        return ['active' => 'active'];
     }
 }

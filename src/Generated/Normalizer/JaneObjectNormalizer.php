@@ -102,45 +102,49 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     }
     private function initNormalizer(string $normalizerClass)
     {
-        $normalizer = new $normalizerClass();
-        $normalizer->setNormalizer($this->normalizer);
-        $normalizer->setDenormalizer($this->denormalizer);
+        $normalizer = match ($normalizerClass) {
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuditLogNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuditLogNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuditLogCollectionNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuditLogCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthPermissionResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthPermissionResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthPermissionRolePaginatedCollectionNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthPermissionRolePaginatedCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthPermissionRoleResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthPermissionRoleResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleCollectionNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleIdentityPaginatedCollectionNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleIdentityPaginatedCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleIdentityResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleIdentityResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\AuthRoleResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\BaseSkuResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\BaseSkuResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\CollectionNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\CollectionNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\CollectionPaginationNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\CollectionPaginationNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\ErrorNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\ErrorNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\ErrorReferencesItemNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\ErrorReferencesItemNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\ErrorResponseNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\ErrorResponseNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\GetAuthPermissionCollectionResponseNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\GetAuthPermissionCollectionResponseNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\InformationNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\InformationNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\InformationResponseNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\InformationResponseNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\NewAuthRoleResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\NewAuthRoleResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\NewSkuGroupNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\NewSkuGroupNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PatchSkuResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PatchSkuResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PatchSkuUsageAdditionalDataNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PatchSkuUsageAdditionalDataNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PostSkuResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PostSkuResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PostSkuUsageAdditionalDataNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\PostSkuUsageAdditionalDataNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuGroupResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuGroupResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuGroupResourceCollectionNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuGroupResourceCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuResourceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuResourceNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuResourceCollectionNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Normalizer\SkuResourceCollectionNormalizer(),
+            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\ReferenceNormalizer::class => new \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\Normalizer\ReferenceNormalizer(),
+            default => throw new \InvalidArgumentException('Unknown normalizer class: ' . $normalizerClass),
+        };
+        if ($normalizer instanceof \Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface) {
+            $normalizer->setNormalizer($this->normalizer);
+        }
+        if ($normalizer instanceof \Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface) {
+            $normalizer->setDenormalizer($this->denormalizer);
+        }
         $this->normalizersCache[$normalizerClass] = $normalizer;
         return $normalizer;
     }
     public function getSupportedTypes(?string $format = null): array
     {
-        return [
-            
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuditLog::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuditLogCollection::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthPermissionResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthPermissionRolePaginatedCollection::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthPermissionRoleResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthRoleCollection::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthRoleIdentityPaginatedCollection::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthRoleIdentityResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\AuthRoleResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\BaseSkuResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Collection::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\CollectionPagination::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Error::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorReferencesItem::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\ErrorResponse::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\GetAuthPermissionCollectionResponse::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\Information::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\InformationResponse::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\NewAuthRoleResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\NewSkuGroup::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PatchSkuUsageAdditionalData::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\PostSkuUsageAdditionalData::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuGroupResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuGroupResourceCollection::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResource::class => false,
-            \Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model\SkuResourceCollection::class => false,
-            \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-        ];
+        return array_combine(array_keys($this->normalizers), array_fill(0, count($this->normalizers), false));
     }
 }

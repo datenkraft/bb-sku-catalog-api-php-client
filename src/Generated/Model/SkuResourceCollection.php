@@ -2,64 +2,23 @@
 
 namespace Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Model;
 
-class SkuResourceCollection extends \ArrayObject
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\AdditionalAndPatternProperties;
+use Datenkraft\Backbone\Client\SkuCatalogApi\Generated\Runtime\AdditionalPropertiesInterface;
+class SkuResourceCollection implements AdditionalPropertiesInterface
 {
-    /**
-     * @var array
-     */
-    protected $initialized = [];
-    public function isInitialized($property): bool
-    {
-        return array_key_exists($property, $this->initialized);
-    }
+    use AdditionalAndPatternProperties;
     /**
      * @var CollectionPagination
      */
-    protected $pagination;
+    public CollectionPagination $pagination;
     /**
      * SkuResourceCollection
      *
      * @var list<SkuResource>
      */
-    protected $data;
-    /**
-     * @return CollectionPagination
-     */
-    public function getPagination(): CollectionPagination
+    public array $data;
+    public function definedProperties(): array
     {
-        return $this->pagination;
-    }
-    /**
-     * @param CollectionPagination $pagination
-     *
-     * @return self
-     */
-    public function setPagination(CollectionPagination $pagination): self
-    {
-        $this->initialized['pagination'] = true;
-        $this->pagination = $pagination;
-        return $this;
-    }
-    /**
-     * SkuResourceCollection
-     *
-     * @return list<SkuResource>
-     */
-    public function getData(): array
-    {
-        return $this->data;
-    }
-    /**
-     * SkuResourceCollection
-     *
-     * @param list<SkuResource> $data
-     *
-     * @return self
-     */
-    public function setData(array $data): self
-    {
-        $this->initialized['data'] = true;
-        $this->data = $data;
-        return $this;
+        return ['pagination' => 'pagination', 'data' => 'data'];
     }
 }

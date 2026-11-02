@@ -41,26 +41,27 @@ class SkuResourceNormalizer implements DenormalizerInterface, NormalizerInterfac
             $data['active'] = (bool) $data['active'];
         }
         if (\array_key_exists('skuGroupId', $data)) {
-            $object->setSkuGroupId($data['skuGroupId']);
+            $object->skuGroupId = $data['skuGroupId'];
             unset($data['skuGroupId']);
         }
         if (\array_key_exists('name', $data)) {
-            $object->setName($data['name']);
+            $object->name = $data['name'];
             unset($data['name']);
         }
         if (\array_key_exists('unit', $data) && $data['unit'] !== null) {
-            $object->setUnit($data['unit']);
+            $object->unit = $data['unit'];
             unset($data['unit']);
         }
-        elseif (\array_key_exists('unit', $data) && $data['unit'] === null) {
-            $object->setUnit(null);
+        elseif (\array_key_exists('unit', $data)) {
+            $object->unit = null;
+            unset($data['unit']);
         }
         if (\array_key_exists('skuCode', $data)) {
-            $object->setSkuCode($data['skuCode']);
+            $object->skuCode = $data['skuCode'];
             unset($data['skuCode']);
         }
         if (\array_key_exists('active', $data)) {
-            $object->setActive($data['active']);
+            $object->active = $data['active'];
             unset($data['active']);
         }
         foreach ($data as $key => $value) {
@@ -73,22 +74,22 @@ class SkuResourceNormalizer implements DenormalizerInterface, NormalizerInterfac
     public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         $dataArray = [];
-        if ($data->isInitialized('skuGroupId') && null !== $data->getSkuGroupId()) {
-            $dataArray['skuGroupId'] = $data->getSkuGroupId();
+        if (array_key_exists('skuGroupId', get_object_vars($data)) && null !== ($data->skuGroupId ?? null)) {
+            $dataArray['skuGroupId'] = $data->skuGroupId;
         }
-        if ($data->isInitialized('name') && null !== $data->getName()) {
-            $dataArray['name'] = $data->getName();
+        if (array_key_exists('name', get_object_vars($data)) && null !== ($data->name ?? null)) {
+            $dataArray['name'] = $data->name;
         }
-        if ($data->isInitialized('unit')) {
-            $dataArray['unit'] = $data->getUnit();
+        if (array_key_exists('unit', get_object_vars($data)) && null !== ($data->unit ?? null)) {
+            $dataArray['unit'] = $data->unit;
         }
-        if ($data->isInitialized('skuCode') && null !== $data->getSkuCode()) {
-            $dataArray['skuCode'] = $data->getSkuCode();
+        if (array_key_exists('skuCode', get_object_vars($data)) && null !== ($data->skuCode ?? null)) {
+            $dataArray['skuCode'] = $data->skuCode;
         }
-        if ($data->isInitialized('active') && null !== $data->getActive()) {
-            $dataArray['active'] = $data->getActive();
+        if (array_key_exists('active', get_object_vars($data)) && null !== ($data->active ?? null)) {
+            $dataArray['active'] = $data->active;
         }
-        foreach ($data as $key => $value) {
+        foreach ($data->additionalPropertyEntries() as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;
             }
